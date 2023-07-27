@@ -1,5 +1,9 @@
 .login-container {
-    height: 475px;
     width: 350px;
-    display: block;
+    display: flex;
+}
+
+.signup-container {
+    width: 350px;
+    display: flex;
 }

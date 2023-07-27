@@ -1,31 +1,67 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { ThemeProvider } from 'styled-components';
-import createTheme from '@mui/material/styles/createTheme';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { CssBaseline } from '@mui/material';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#ffff",
-      light: "#ffff",
-      dark: "#ffff",
-      contrastText: "#ffff"
+      main: "#a026ff",
+      light: "#b14dff",
+      dark: "#8f00ff",
     },
     secondary: {
-      main: "#392759",
-      light: "#231e3e",
-      dark: "#c7bdff"
+      main: "#a026ff",
+      light: "#b14dff",
+      dark: "#8f00ff"
+    },
+    background: {
+      default: "#fffff",
+      paper: "#d299ff"
     }
-  }
-})
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        notchedOutline: {
+          borderColor: "#8f00ff"
+        }
+      }
+    },
+    MuiCheckbox:{
+      styleOverrides: {
+        root: {
+          color: "#8f00ff"
+        }
+      }
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          color: "#8f00ff"
+        }
+      }
+    },
+    MuiFormControlLabel: {
+      styleOverrides: {
+        root: {
+          color: "#8f00ff"
+        }
+      }
+    }
+  },
+});
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <ThemeProvider theme={theme} >
+ReactDOM.render(
+  <React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
       <App />
-  </ThemeProvider>
+    </ThemeProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
 );
 
 reportWebVitals();

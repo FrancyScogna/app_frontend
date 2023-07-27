@@ -5,14 +5,12 @@
 
 .forms-container {
     display: flex;
-    height: 500px;
     flex-direction: row;
 }
 
 .left-container {
     display: flex;
     flex: 0.9;
-    height: 100%;
     background-color: violet;
     justify-content: end;
     align-items: center;
@@ -25,12 +23,12 @@
 .form-container {
     padding-left: 5%;
     padding-top: 2%;
+    padding-bottom: 2%;
 }
 
 .right-container {
     display: flex;
     flex: 1;
-    height: 100%;
     justify-content: start;
     align-items: center;
 }

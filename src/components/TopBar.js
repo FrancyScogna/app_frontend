@@ -19,6 +19,7 @@ function TopBar(){
         },
         marginLeft: 0,
         width: '100%',
+        overflow: "hidden",
         [theme.breakpoints.up('sm')]: {
             marginLeft: theme.spacing(1),
             width: 'auto',
