@@ -1,10 +1,9 @@
 import "./Authentication.css";
 import Logo from "../images/logo.png"
-import LoginForm from "../components/authComponents/LoginForm";
-import SignupForm from "../components/authComponents/SignupForm";
 import { useTheme } from "@mui/material/styles";
+import { Outlet } from "react-router-dom";
 
-function Authentication({route}){
+function Authentication(){
     const theme = useTheme();
     return(
         <div className="container">
@@ -14,7 +13,7 @@ function Authentication({route}){
                 </div>
                 <div className="right-container">
                     <div className="form-container">
-                        <SignupForm />
+                        <Outlet />
                     </div>
                 </div>
             </div>
