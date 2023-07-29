@@ -46,14 +46,24 @@ function LoginForm(){
 
     const [password, setPassword] = useState("");
     const [passwordEmpty, setPasswordEmpty] = useState(true);
+    const [passwordValid, setPasswordValid] = useState(false);
 
     const onChangePassword = (event) => {
         const inputPassword = event.target.value;
         setPassword(inputPassword);
+
+        const spaces = /(?=\s)/;
+        const valid = spaces.test(inputPassword);
+
         if(inputPassword === ""){
             setPasswordEmpty(true);
         }else{
             setPasswordEmpty(false);
+            if(valid){
+                setPasswordValid(true)
+            }else{
+                setPasswordValid(false)
+            }
         }
     }
 
@@ -93,8 +103,9 @@ function LoginForm(){
         const mainAlertMessages = () => {
             setMessage([])
             const messages = [
-                { key: "emailInvalid", message: "Verifica che l'email inserita sia in un formato corretto.", visible: !emailValid},
-                { key: "emailEmpty", message: "Verifica che tutti i campi siano compilati.", visible: passwordEmpty || emailEmpty }            
+                { key: "emailInvalid", message: "Verifica che l'email inserita sia in un formato corretto.", visible: !emailValid && !passwordEmpty && !emailEmpty},
+                { key: "emailEmpty", message: "Verifica che tutti i campi siano compilati.", visible: passwordEmpty || emailEmpty },    
+                { key: "passwordInvalid", message: "La password inserita non è corretta.", visible: passwordValid && !passwordEmpty && !emailEmpty}
             ];
             return messages;
         };

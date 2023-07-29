@@ -79,7 +79,6 @@ function SignupForm(){
 
     }
 
-
     //Variabili per il settaggio e il controllo della password.
     const [password, setPassword] = useState("");
     const [showPasswordAlert, setShowPasswordAlert] = useState(false);
@@ -98,12 +97,14 @@ function SignupForm(){
             const atLeastOneDigit = /(?=.*\d)/;
             const atLeastOneSpecialChar = /(?=.*[$*{}()?!@#.%&><':;|_=+\-,])/;
             const validLength = /^.{8,20}$/;
+            const spaces = /(?=\s)/;
             const messages = [
                 { key: "lowercaseLetter", message: "La password deve contenere almeno una lettera minuscola.", visible: !atLeastOneLowercaseLetter.test(inputPassword) },
                 { key: "uppercaseLetter", message: "La password deve contenere almeno una lettera maiuscola.", visible: !atLeastOneUppercaseLetter.test(inputPassword) },
                 { key: "digit", message: "La password deve contenere almeno un numero.", visible: !atLeastOneDigit.test(inputPassword) },
                 { key: "specialChar", message: "La password deve contenere almeno un carattere speciale tra $*{}()?!@#.%&><':;|_=+-,.", visible: !atLeastOneSpecialChar.test(inputPassword) },
-                { key: "validLength", message: "La password deve avere una lunghezza minima di 8 caratteri e massima di 20 caratteri.", visible: !validLength.test(inputPassword) }
+                { key: "validLength", message: "La password deve avere una lunghezza minima di 8 caratteri e massima di 20 caratteri.", visible: !validLength.test(inputPassword) },
+                { key: "spaces", message: "La password non deve contenere spazi.", visible: spaces.test(inputPassword)}
             ];
             return messages;
         };
@@ -226,7 +227,7 @@ function SignupForm(){
                 }
             })
             .then((data) => {
-              navigate("/verifyaccount")
+              */navigate("/confirmAccount")/*
             })
             .catch((error) => {
                 setLoading(false)

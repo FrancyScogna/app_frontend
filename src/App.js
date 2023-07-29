@@ -4,6 +4,7 @@ import Authentication from "./pages/Authentication";
 import { Route, Routes } from "react-router-dom";
 import LoginForm from "./components/authComponents/LoginForm";
 import SignupForm from "./components/authComponents/SignupForm";
+import ConfirmForm from "./components/authComponents/ConfirmForm";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <Route path="/" element={<Authentication />}>
           <Route path="/" element={<LoginForm />} />
           <Route path="/signup" element={<SignupForm />} />
+          <Route path="/confirmAccount" element={<ConfirmForm />} />
         </Route>
       </Routes>
     </div>
