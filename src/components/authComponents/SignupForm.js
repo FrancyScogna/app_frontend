@@ -1,9 +1,12 @@
-import { Alert, Button, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, Grid, IconButton, InputAdornment, List, ListItem, ListItemText, TextField, Typography } from "@mui/material";
+import { Alert, Checkbox, FormControl, FormControlLabel, Grid, TextField, Typography } from "@mui/material";
 import "./styles.css";
 import { LoadingButton } from "@mui/lab";
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function SignupForm(){
+
+    const navigate = useNavigate();
 
     //Variabili per il settaggio e il controllo del nickname.
     const [nickname, setNickname] = useState('');
@@ -39,10 +42,12 @@ function SignupForm(){
         }
     };
 
+    //Variabili per il settaggio e il controllo dell'email.
     const [email, setEmail] = useState("");
     const [showEmailAlert, setShowEmailAlert] = useState(false);
     const [emailEmpty, setEmailEmpty] = useState(true);
 
+    //Funzione per controllare il campo "Email".
     const onChangeEmail = (event) => {
         const inputEmail = event.target.value;
         setEmail(inputEmail);
@@ -143,6 +148,120 @@ function SignupForm(){
         }
     }
 
+    //Variabile per il settaggio del checkbox "Accetta i nostri termini e condizioni".
+    const [termsAndConditions, setTermsAndConditions] = useState(false);
+
+    //Funzione per il settaggio del checkbox "T&C".
+    const onChangeTermsAndConditions = (event) => {
+        const checked = event.target.checked;
+        if(checked){
+            setTermsAndConditions(true);
+        }else{
+            setTermsAndConditions(false);
+        }
+    }
+
+    //Variabile per il settaggio del checkbox "Ho più di 18 anni".
+    const [adult, setAdult] = useState(false);
+
+    //Funzione per il settaggio del checkbox "Ho più di 18 anni".
+    const onChangeAdult = (event) => {
+        const checked = event.target.checked;
+        if(checked){
+            setAdult(true);
+        }else{
+            setAdult(false);
+        }
+    }
+
+    //Quando clicchi sulla scritta "Hai già un account? Accedi".
+    const onClickLogin = () => {
+        navigate("/");
+    }
+
+    //Variabili per il bottone "Effettua registrazione" e per l'alert di eventuali errori
+    const [alert, setAlert] = useState(false);
+    const [message, setMessage] = useState([]);
+    const [loading, setLoading] = useState(false);
+
+    //Funzione che si attiva al click di "Effettua Registrazione" e verifica se è stato compilato il form correttamente
+    // AAA. Quando aggiungeremo il backend bisogna configurare attentamente questa funzione.
+    const onClickSignupLoadingButton = async(e) => {
+        e.preventDefault();
+        setLoading(true);
+        setAlert(false);
+        setMessage([]);
+
+        const mainAlertMessages = () => {
+            setMessage([])
+            const messages = [
+                { key: "invalidError", message: "Verifica che tutti i campi siano stati compilati correttamente.", visible: showNicknameAlert || showEmailAlert || showPasswordAlert || showRepeatPasswordAlert },
+                { key: "emptyFormError", message: "Verifica che i campi non siano vuoti.", visible: nicknameEmpty || emailEmpty || passwordEmpty || repeatPasswordEmpty },
+                { key: "adultError", message: "Devi confermare di avere almeno 18 anni.", visible: !adult },
+                { key: "termsAndConditionsError", message: "Devi accettare i nostri termini e condizioni.", visible: !termsAndConditions }             
+            ];
+            return messages;
+        };
+
+        const messages = mainAlertMessages();
+        const allConditionsSatisfied = messages.every((message) => !message.visible);
+
+        if(!allConditionsSatisfied){
+            setAlert(true);
+            setMessage(messages);
+            setLoading(false);
+        }else{
+            setAlert(false);
+            setMessage([]);
+            //Si procede con la registrazione da backend
+            /*
+            await Auth.signUp({
+                username: email,
+                password: password,
+                attributes: {
+                  name: nickname
+                },
+                autoSignIn: {
+                    enabled: true,
+                }
+            })
+            .then((data) => {
+              navigate("/verifyaccount")
+            })
+            .catch((error) => {
+                setLoading(false)
+                setAlert(true)
+                switch (error.message) {
+                    case "Username should be an email.":
+                        setAlert(true)
+                        setLoading(false)
+                        setMessage("L'email inserita non è valida")
+                        break;
+                    case "Username cannot be empty":
+                        setAlert(true)
+                        setLoading(false)
+                        setMessage("Il campo dell'email non può essere vuoto")
+                        break;
+                    case "Password cannot be empty":
+                        setAlert(true)
+                        setLoading(false)
+                        setMessage("Il campo della password non può essere vuoto")
+                        break;
+                    case "An account with the given email already exists.":
+                        setAlert(true)
+                        setLoading(false)
+                        setMessage("Esiste già un account con questa email")
+                        break;
+                    default:
+                        setMessage("")
+                        setAlert(false)
+                        break;
+                }
+            })
+            */
+        }
+    }
+
     return(
         <div className="signup-container">
             <FormControl component="form">
@@ -154,12 +273,18 @@ function SignupForm(){
                     </Grid>
                     <Grid item xs={12}>
                         <Alert
-                        severity="error" 
+                        severity="error"
+                        style={{marginTop: "3px", display: !alert && "none"}}
                         >
-                            <Typography 
-                            variant="body2">
-                                Messaggio di errore
-                            </Typography>
+                            <ul style={{marginLeft: "-24px", marginTop: "0px", marginBottom: "0px"}}>
+                            {message.map((message) => (
+                                message.visible && (
+                                <Typography key={message.key} fontSize="13px">
+                                <li>{message.message}</li>
+                                </Typography>
+                                )
+                            ))}
+                            </ul>
                         </Alert>
                     </Grid>
                     <Grid item xs={12}>
@@ -220,7 +345,7 @@ function SignupForm(){
                             <ul style={{marginLeft: "-24px", marginTop: "0px", marginBottom: "0px"}}>
                             {passwordAlertMessage.map((message) => (
                                 message.visible && (
-                                <Typography fontSize="13px">
+                                <Typography key={message.key} fontSize="13px">
                                 <li>{message.message}</li>
                                 </Typography>
                                 )
@@ -252,6 +377,7 @@ function SignupForm(){
                         control={
                         <Checkbox 
                         style={{transform: "scale(0.8)"}}
+                        onChange={onChangeTermsAndConditions}
                         />
                         }
                         label={
@@ -265,6 +391,7 @@ function SignupForm(){
                         control={
                         <Checkbox 
                         style={{transform: "scale(0.8)"}}
+                        onChange={onChangeAdult}
                         />
                         } 
                         label={
@@ -282,7 +409,9 @@ function SignupForm(){
                                 type="submit"
                                 id="signup_button" 
                                 variant="contained"
+                                loading={loading}
                                 fullWidth
+                                onClick={onClickSignupLoadingButton}
                                 >
                                     Effettua registrazione
                                 </LoadingButton>
@@ -292,13 +421,13 @@ function SignupForm(){
                                 align="right"
                                 variant="subtitle1" 
                                 fontSize="15px"
+                                tabIndex={0}
+                                onClick={onClickLogin}
                                 style={{cursor: "pointer", marginTop:"9px", marginRight: "5px", marginBottom: "10px"}}>
                                     Hai già un account? Effettua l'accesso.
                                 </Typography>
                             </Grid>
                         </Grid>
-                        
-
                     </Grid>
                 </Grid>
             </FormControl>
