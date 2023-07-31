@@ -5,8 +5,11 @@ import { Route, Routes } from "react-router-dom";
 import LoginForm from "./components/authComponents/LoginForm";
 import SignupForm from "./components/authComponents/SignupForm";
 import ConfirmForm from "./components/authComponents/ConfirmForm";
+import ForgotPasswordCodeForm from "./components/authComponents/ForgotPasswordCodeForm";
+import ForgotPasswordForm from "./components/authComponents/ForgotPasswordForm";
 
 function App() {
+
   return (
     <div>
     <div style={{height:'60px', display:"flex", flexDirection:"row", justifyContent:"space-around", alignItems:"center"}}>
@@ -14,9 +17,11 @@ function App() {
     </div>
       <Routes>
         <Route path="/" element={<Authentication />}>
-          <Route path="/" element={<LoginForm />} />
-          <Route path="/signup" element={<SignupForm />} />
-          <Route path="/confirmAccount" element={<ConfirmForm />} />
+          <Route path="/" element={<LoginForm/>} />
+          <Route path="/signup" element={<SignupForm/>} />
+          <Route path="/confirmAccount" element={<ConfirmForm/>} />
+          <Route path="/forgotPasswordCode" element={<ForgotPasswordCodeForm />} />
+          <Route path="/forgotPassword" element={<ForgotPasswordForm />} />
         </Route>
       </Routes>
     </div>

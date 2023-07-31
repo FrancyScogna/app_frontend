@@ -1,56 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Alert, Button, Checkbox, Divider, FormControl, FormControlLabel, Grid, TextField, Typography, useTheme } from "@mui/material";
+import { Alert, FormControl, Grid, Snackbar, TextField, Typography, useTheme } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import "./styles.css";
-import useTimer from "../../libs/useTimer";
 
 function ConfirmForm(){
 
     const navigate = useNavigate();
     const theme = useTheme();
-    const {timerSeconds, startTimer, resetTimer} = useTimer();
+    const email = localStorage.getItem("email")
 
-    //Variabili per il settaggio e il controllo dell'email.
-    const [email, setEmail] = useState("");
-    const [emailValid, setEmailValid] = useState(false);
-    const [emailEmpty, setEmailEmpty] = useState(true);
-
-    //Funzione per controllare il campo "Email".
-    const onChangeEmail = (event) => {
-        const inputEmail = event.target.value;
-        setEmail(inputEmail);
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-        var valid;
-        var empty;
-
-        if(inputEmail === ""){
-            valid = false;
-            empty = true;
-        }else{
-            valid = emailRegex.test(inputEmail);
-            empty = false;
+    useEffect(() => {
+        if(!email){
+            navigate("/");
         }
-        
-        if(empty){
-            setEmailEmpty(true);
-            setEmailValid(false);
-        }else{
-            if(valid){
-                setEmailEmpty(false);
-                setEmailValid(true);
-            }else{
-                setEmailEmpty(false);
-                setEmailValid(false);
-            }
-        }
-    }
+    },[email, navigate])
 
     //Variabili per il settaggio e il controllo sul codice inserito.
     const [code, setCode] = useState("");
     const [codeEmpty, setCodeEmpty] = useState(true);
     const [codeValid, setCodeValid] = useState(false);
+    const [resendCodeAlert, setResendCodeAlert] = useState(false);
 
     //Funzione per il controllo della validità e il settaggio del codice.
     const onChangeCode = (event) => {
@@ -71,7 +41,46 @@ function ConfirmForm(){
 
     //Funzione che si esegue quando clicchi sul testo "Non hai ricevuto il codice? Rinvia codice".
     const onClickResendCode = () => {
-        
+        /*await Auth.resendSignUp(email)
+        .then((data) => {
+            */
+            setResendCodeAlert(true);
+            setTimeout(() => {
+                setResendCodeAlert(false);
+            }, 4000)
+            /*
+        })
+        .catch((error) => {
+            console.log(error.message)
+            switch (error.message) {
+                case "Username cannot be empty":
+                    setLoading(false)
+                    setAlert(true)
+                    setMessage("Il campo della mail non può essere vuoto.")
+                    break;
+                case "User is already confirmed.":
+                    setAlert(true)
+                    setLoading(false)
+                    setMessage("L'utente è già stato confermato.")
+                    setTimeout(function(){window.location.href="/"}, 6000)
+                    break;
+                case "Username/client id combination not found.":
+                    setAlert(true)
+                    setMessage("L'email non è associata a nessun account.")
+                    setLoading(false)
+                    break;
+                case "Attempt limit exceeded, please try after some time.":
+                    setAlert(true)
+                    setMessage("Hai effettuato troppi tentativi. Riprova più tardi.")
+                    setLoading(false)
+                    break;
+                default:
+                    setAlert(true)
+                    setMessage("")
+                    setLoading(false)
+                    break;
+            }
+        })*/
     }
 
     //Variabili per il settaggio del caricamento del loading button, del testo del messaggio dell'alert,
@@ -79,6 +88,7 @@ function ConfirmForm(){
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState([]);
     const [alert, setAlert] = useState(false);
+    const [confirmAlert, setConfirmAlert] = useState(false);
 
     //Funzione che si esegue quando clicchi sul pulsante "Esegui l'accesso".
     //AAA: Quando aggiungeremo il backend bisogna configurare attentamente questa funzione.
@@ -91,9 +101,8 @@ function ConfirmForm(){
         const mainAlertMessages = () => {
             setMessage([])
             const messages = [
-                { key: "emailInvalid", message: "Verifica che l'email inserita sia in un formato corretto.", visible: !emailValid && !codeEmpty && !emailEmpty},
-                { key: "codeInvalid", message: "Verifica che il codice inserito sia in un formato valido.", visible: !codeValid && !codeEmpty && !emailEmpty},
-                { key: "emailEmpty", message: "Verifica che tutti i campi siano compilati.", visible: codeEmpty || emailEmpty }            
+                { key: "codeInvalid", message: "Verifica che il codice inserito sia in un formato valido.", visible: !codeValid && !codeEmpty},
+                { key: "emailEmpty", message: "Verifica che tutti i campi siano compilati.", visible: codeEmpty }            
             ]
             return messages;
         };
@@ -111,10 +120,14 @@ function ConfirmForm(){
             /*
             await Auth.confirmSignUp(email, code)
             .then(() =>{
-                setOpenSuccess(true)
+                */
+                setConfirmAlert(true);
+                setResendCodeAlert(false);
                 setTimeout(() => {
+                    localStorage.removeItem("email");
                     window.location.href="/"
-                },2000)
+                }, 2500)
+                /*
             })
             .catch((error) => {
                 switch (error.message) {
@@ -169,7 +182,7 @@ function ConfirmForm(){
     }
 
     return(
-        <div className="login-container">
+        <div className="confirm-container">
             <FormControl component="form">
                 <Grid container rowSpacing={2} columnSpacing={1} display="flex">
                     <Grid item xs={12}>
@@ -184,7 +197,8 @@ function ConfirmForm(){
                             <Typography 
                             variant="body1"
                             align="left">
-                                Ti è stata inviata una mail con il codice per la conferma della tua mail associata all'account.
+                                Ti è stato inviato un codice di verifica all'indirizzo:{" "}
+                                <Typography fontWeight="bold" component="span">{email}</Typography>
                             </Typography>
                         </div>
                     </Grid>
@@ -205,20 +219,11 @@ function ConfirmForm(){
                         </Alert>
                     </Grid>
                     <Grid item xs={12}>
-                        <TextField 
-                        autoComplete="email"
-                        type="email"  
-                        label="Email" 
-                        variant="outlined" 
-                        fullWidth
-                        onChange={onChangeEmail}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
                         <TextField
                         type="text"
                         label="Codice"
                         variant="outlined"
+                        value={code === ""? "" : code}
                         fullWidth
                         onChange={onChangeCode}
                         />
@@ -251,6 +256,25 @@ function ConfirmForm(){
                     </Grid>
                 </Grid>
             </FormControl>
+            <Snackbar
+            open={confirmAlert} 
+            autoHideDuration={2500} 
+            anchorOrigin={{vertical: "bottom", horizontal: "right"}} 
+            >
+                <Alert severity="success">
+                    Account confermato con successo!
+                </Alert>
+            </Snackbar>
+            <Snackbar
+            open={resendCodeAlert} 
+            autoHideDuration={4000} 
+            anchorOrigin={{vertical: "bottom", horizontal: "right"}} 
+            >
+                <Alert severity="success">
+                    Il codice è stato inviato all'indirizzo:{" "}
+                    <Typography fontWeight="bold" fontSize="14px" component="span">{email}</Typography>
+                </Alert>
+            </Snackbar>
         </div>
     )
 }

@@ -226,8 +226,11 @@ function SignupForm(){
                     enabled: true,
                 }
             })
-            .then((data) => {
-              */navigate("/confirmAccount")/*
+            .then((data) => {  
+            */
+            localStorage.setItem("email", email);
+            navigate("/confirmAccount");
+             /*
             })
             .catch((error) => {
                 setLoading(false)

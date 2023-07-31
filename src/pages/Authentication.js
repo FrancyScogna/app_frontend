@@ -5,11 +5,12 @@ import { Outlet } from "react-router-dom";
 
 function Authentication(){
     const theme = useTheme();
+
     return(
         <div className="container">
             <div className="forms-container">
                 <div className="left-container" style={{backgroundColor: theme.palette.background.paper}}>
-                    <img className="logo" src={Logo} />
+                    <img className="logo" alt="logo" src={Logo} />
                 </div>
                 <div className="right-container">
                     <div className="form-container">

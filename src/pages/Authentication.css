@@ -12,7 +12,7 @@
     display: flex;
     flex: 0.9;
     background-color: violet;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
 }
 
@@ -29,6 +29,6 @@
 .right-container {
     display: flex;
     flex: 1;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
 }

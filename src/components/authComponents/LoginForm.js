@@ -83,7 +83,7 @@ function LoginForm(){
 
     //Funzione che si esegue quando clicchi sul testo "Hai dimenticato la password?".
     const onClickForgotPassword = () => {
-        navigate("/forgotpassword")
+        navigate("/forgotPasswordCode")
     }
 
     //Variabili per il settaggio del caricamento del loading button, del testo del messaggio dell'alert,
@@ -157,7 +157,9 @@ function LoginForm(){
                         setLoading(false)
                         break;
                     case "User is not confirmed.":
-                        navigate("/sendcodeverify")
+                        */ 
+                        sendConfirmCode();
+                        /*
                         setLoading(false)
                         break;
                     default:
@@ -167,6 +169,19 @@ function LoginForm(){
                         break;
                 }*/
             }
+    }
+
+    //Funzione evocata quando si accede con un account che non è stato ancora confermato
+    //Rinvia il codice di conferma e passa alla pagina di Conferma Account
+    const sendConfirmCode = () => {
+        /*await Auth.resendSignUp(email)
+        .then((data) => {
+            */
+            localStorage.setItem("email", email);
+            navigate("/confirmAccount")
+            /*
+        })
+        */
     }
 
     //Funzione che si esegue quando clicchi il pulsante "Crea un account".
