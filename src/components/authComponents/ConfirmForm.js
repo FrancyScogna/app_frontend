@@ -84,13 +84,13 @@ function ConfirmForm(){
     }
 
     //Variabili per il settaggio del caricamento del loading button, del testo del messaggio dell'alert,
-    //dell'attivazione dell'alert, del check del "ricordami".
+    //dell'attivazione dell'alert.
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState([]);
     const [alert, setAlert] = useState(false);
     const [confirmAlert, setConfirmAlert] = useState(false);
 
-    //Funzione che si esegue quando clicchi sul pulsante "Esegui l'accesso".
+    //Funzione che si esegue quando clicchi sul pulsante "Conferma".
     //AAA: Quando aggiungeremo il backend bisogna configurare attentamente questa funzione.
     const onPressConfirm = async(e) =>{
         e.preventDefault()

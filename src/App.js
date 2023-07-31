@@ -7,14 +7,17 @@ import SignupForm from "./components/authComponents/SignupForm";
 import ConfirmForm from "./components/authComponents/ConfirmForm";
 import ForgotPasswordCodeForm from "./components/authComponents/ForgotPasswordCodeForm";
 import ForgotPasswordForm from "./components/authComponents/ForgotPasswordForm";
+import BottomBar from "./components/BottomBar";
 
 function App() {
 
   return (
     <div>
-    <div style={{height:'60px', display:"flex", flexDirection:"row", justifyContent:"space-around", alignItems:"center"}}>
-      <TopBar />
-    </div>
+
+      <div className="topbar-container" style={{}}>
+        <TopBar />
+      </div>
+
       <Routes>
         <Route path="/" element={<Authentication />}>
           <Route path="/" element={<LoginForm/>} />
@@ -24,6 +27,10 @@ function App() {
           <Route path="/forgotPassword" element={<ForgotPasswordForm />} />
         </Route>
       </Routes>
+
+      <div className="bottombar-container">
+        <BottomBar />
+      </div>
     </div>
   );
 }

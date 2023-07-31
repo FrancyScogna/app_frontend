@@ -51,7 +51,7 @@ function ForgotPasswordCodeForm(){
     const [message, setMessage] = useState([]);
     const [alert, setAlert] = useState(false);
 
-    //Funzione che si esegue quando clicchi sul pulsante "Esegui l'accesso".
+    //Funzione che si esegue quando clicchi sul pulsante "Invia codice".
     //AAA: Quando aggiungeremo il backend bisogna configurare attentamente questa funzione.
     const onPressSendCode = async(e) =>{
         e.preventDefault()

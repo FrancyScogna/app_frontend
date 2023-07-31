@@ -379,8 +379,7 @@ function SignupForm(){
                         <FormControlLabel 
                         style={{marginBottom: "-10px"}}
                         control={
-                        <Checkbox 
-                        style={{transform: "scale(0.8)"}}
+                        <Checkbox
                         onChange={onChangeTermsAndConditions}
                         />
                         }
@@ -394,7 +393,6 @@ function SignupForm(){
                         <FormControlLabel 
                         control={
                         <Checkbox 
-                        style={{transform: "scale(0.8)"}}
                         onChange={onChangeAdult}
                         />
                         } 

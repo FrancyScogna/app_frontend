@@ -6,6 +6,7 @@
 .forms-container {
     display: flex;
     flex-direction: row;
+    padding-bottom: 20px;
 }
 
 .left-container {
@@ -17,18 +18,42 @@
 }
 
 .logo {
-    padding-right: 7%;
+    width: 60%;
 }
 
 .form-container {
     padding-left: 5%;
     padding-top: 2%;
-    padding-bottom: 2%;
+    padding-bottom: 40px;
 }
 
 .right-container {
     display: flex;
     flex: 1;
     justify-content: flex-start;
+    align-items: center;
+}
+
+.bottom-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.auth-discover-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divider-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-aboutus-container {
+    display: flex;
+    justify-content: center;
     align-items: center;
 }

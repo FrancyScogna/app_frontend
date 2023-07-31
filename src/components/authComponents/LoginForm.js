@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Alert, Button, Checkbox, Divider, FormControl, FormControlLabel, Grid, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import "./styles.css";
+import { useTheme } from "@mui/system";
 
 function LoginForm(){
 
@@ -238,7 +239,6 @@ function LoginForm(){
                                 <FormControlLabel 
                                 control={
                                 <Checkbox 
-                                style={{transform: "scale(0.8)"}}
                                 onChange={onChangeRememberme}
                                 />
                                 } 

@@ -1,0 +1,33 @@
+.bottombar-component {
+    display: flex;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10%;
+    padding-right: 10%;
+    flex-direction: column;
+}
+
+.bottombar-top-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.bottombar-left-container {
+    display: flex;
+    flex: 1;
+    margin-left: 20px;
+}
+
+.bottombat-right-container {
+    display: flex;
+    flex: 1;
+    margin-right: 20px;
+}
+
+.bottombar-bottom-container {
+    display: flex;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}

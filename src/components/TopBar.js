@@ -1,49 +1,22 @@
-import { Button, IconButton, Toolbar, Box, TextField, AppBar, alpha, InputBase } from "@mui/material";
+import { Button, IconButton, Toolbar, Box, AppBar, InputBase } from "@mui/material";
 import Divider from '@mui/material/Divider';
-import SearchIcon from '@mui/icons-material/Search'; // Importa l'icona di ricerca
-import NotificationsIcon from '@mui/icons-material/Notifications'; // Importa l'icona per le notifiche
-import MessageIcon from '@mui/icons-material/Message'; // Importa l'icona per i messaggi
-import AccountCircleIcon from '@mui/icons-material/AccountCircle'; // Importa l'icona per l'account
+import SearchIcon from '@mui/icons-material/Search';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import MessageIcon from '@mui/icons-material/Message';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import Logo from "../images/logo.png"
-import { useTheme } from "styled-components";
 import styled from "@mui/material/styles/styled";
+import { useTheme } from "@mui/system";
+import { useNavigate } from "react-router-dom";
 
 function TopBar(){
 
-    const Search = styled('div')(({ theme }) => ({
-        position: 'relative',
-        borderRadius: theme.shape.borderRadius,
-        backgroundColor: alpha(theme.palette.common.white, 0.15),
-        '&:hover': {
-            backgroundColor: alpha(theme.palette.common.white, 0.25),
-        },
-        marginLeft: 0,
-        width: '100%',
-        overflow: "hidden",
-        [theme.breakpoints.up('sm')]: {
-            marginLeft: theme.spacing(1),
-            width: 'auto',
-        },
-        }));
-        
-    const SearchIconWrapper = styled('div')(({ theme }) => ({
-        padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    }));
-        
     const StyledInputBase = styled(InputBase)(({ theme }) => ({
-        color: 'inherit',
+        color: 'inherit', 
+        width: 'calc(100% - 48px)',
+        flex:'1',
         '& .MuiInputBase-input': {
-            padding: theme.spacing(1, 1, 1, 0),
-            // vertical padding + font size from searchIcon
-            paddingLeft: `calc(1em + ${theme.spacing(4)})`,
             transition: theme.transitions.create('width'),
-            width: '100%',
             [theme.breakpoints.up('sm')]: {
             width: '20ch',
             '&:focus': {
@@ -53,26 +26,30 @@ function TopBar(){
         },
     }));
 
-
-
     const theme = useTheme()
+    const navigate = useNavigate()
+
     return(
         <AppBar>
-            <Toolbar style={{display:"flex", flexDirection:"row", justifyContent:"space-between", alignItems:"center", maxWidth:'100%',paddingRight:'16px', // Aggiungi il colore di sfondo desiderato
+            <Toolbar style={{display:"flex", flexDirection:"row", justifyContent:"space-between", alignItems:"center", maxWidth:'100%',paddingRight:'16px',
             }}>
                 <Box style={{display:"flex",alignItems:"center",minwidth:'300px'}}>
-                    <img alt="" src={Logo} style={{ height:"58px",position:"relative"}}/>
+                    <img alt="" src={Logo} onClick={() => navigate("/")} style={{cursor: "pointer", height:"58px",position:"relative"}}/>
                 </Box>
-                <Box style={{position:"relative",minWidth: "100px",paddingTop:'0px',paddingBottom:'0px',paddingLeft:'8px',paddingRight:'8px'}}>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
+                <Box style={{position:"relative",minWidth: "100px",paddingTop:'0px',paddingBottom:'0px',paddingLeft:'8px',paddingRight:'8px', borderBottom: `2px solid ${theme.palette.primary.light}`}}>
+                    
                         <StyledInputBase
-                            placeholder="Search…"
+                            placeholder="Cerca..."
                             inputProps={{ 'aria-label': 'search' }}
                         />
-                    </Search>
+                        <IconButton
+                        type="button"
+                        sx={{ p: "10px", width: "48px" }}
+                        aria-label="search"
+                    >
+                    <SearchIcon style={{color: theme.palette.background.paper}}/>
+                    </IconButton>
+            
                 </Box>
 
                 <Box style={{alignItems:"center",  display: 'flex'}}>
@@ -90,7 +67,6 @@ function TopBar(){
                     <IconButton>
                         <AccountCircleIcon style={{ fontSize: 30 }}/>
                     </IconButton>
-
                 </Box>
             </Toolbar>
         </AppBar>
