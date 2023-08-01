@@ -1,3 +1,5 @@
+import { ThemeProvider } from "@mui/system";
+import { CssBaseline } from "@mui/material";
 import TopBar from "./components/TopBar";
 import "./App.css";
 import Authentication from "./pages/Authentication";
@@ -8,14 +10,22 @@ import ConfirmForm from "./components/authComponents/ConfirmForm";
 import ForgotPasswordCodeForm from "./components/authComponents/ForgotPasswordCodeForm";
 import ForgotPasswordForm from "./components/authComponents/ForgotPasswordForm";
 import BottomBar from "./components/BottomBar";
+import { lightTheme, darkTheme } from "./libs/theme";
+import { useState } from "react";
 
 function App() {
 
-  return (
-    <div>
+  const storedThemeMode = window.localStorage.getItem("themeMode");
+  var themeSelected = false;
+  storedThemeMode ? themeSelected = true : themeSelected = false;
+  const [themeMode, setThemeMode] = useState(themeSelected ? (storedThemeMode === "light" ? lightTheme : darkTheme) : lightTheme);
 
-      <div className="topbar-container" style={{}}>
-        <TopBar />
+  return (
+    <ThemeProvider theme={themeMode}>
+    <CssBaseline />
+
+      <div className="topbar-container">
+        <TopBar setThemeMode={setThemeMode}/>
       </div>
 
       <Routes>
@@ -31,7 +41,8 @@ function App() {
       <div className="bottombar-container">
         <BottomBar />
       </div>
-    </div>
+
+      </ThemeProvider>
   );
 }
 

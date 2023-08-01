@@ -31,3 +31,50 @@
     margin-left: 20px;
     margin-right: 20px;
 }
+
+.topbar-appbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 65px;
+    padding-inline: 3%;
+}
+
+.topbar-toolbar {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex: 1;
+    height: 100%;
+    width: 100%;
+}
+
+.topbar-logo-container {
+    display: flex;
+    height: 60px;
+    width: 140px;
+    cursor: pointer;
+}
+
+.topbar-logo {
+    width: 100%;
+}
+
+.topbar-items-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+}
+
+.topbar-search-container {
+    display: flex;
+    margin: auto;
+}
+
+.topbar-items {
+    padding-inline: 10px;
+    display: flex;
+    margin-left: auto;
+}

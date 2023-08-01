@@ -22,9 +22,9 @@ function AboutUsAuth(){
             width="78%"
             color={theme.palette.primary.light}
             >
-                Ptok è un avvincente social network che offre contenuti esclusivi e coinvolgenti. <div/>
-                Scopri post, video e altro ancora attraverso un'esperienza di scorrimento intuitiva e interattiva. <div />
-                Connettiti con altri utenti e creator, esplora nuovi contenuti e vivi un'esperienza unica nel suo genere. <div/>
+                Ptok è un avvincente social network che offre contenuti esclusivi e coinvolgenti.<br/>
+                Scopri post, video e altro ancora attraverso un'esperienza di scorrimento intuitiva e interattiva.<br/>
+                Connettiti con altri utenti e creator, esplora nuovi contenuti e vivi un'esperienza unica nel suo genere.<br/>
                 Puoi diventare anche tu un Creator!
             </Typography>
             <Button

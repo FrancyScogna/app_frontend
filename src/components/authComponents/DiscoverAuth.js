@@ -1,6 +1,6 @@
 import { Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
-import discovery_auth_image from "../../images/discovery_auth_image.png"
+import discovery_auth_image from "../../images/discovery_auth_image.png";
 
 function DiscoverAuth(){
     const theme = useTheme();
@@ -28,7 +28,7 @@ function DiscoverAuth(){
             fontWeight="bold"
             color={theme.palette.primary.light}
             >
-                Esplora Ptok e non perderti le novità, <div />
+                Esplora Ptok e non perderti le novità,<br/>
                 iscriviti per migliorare la tua esperienza nell'app.
             </Typography>
             <Button
