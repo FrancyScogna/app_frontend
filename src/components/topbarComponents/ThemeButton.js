@@ -1,5 +1,5 @@
 import { DarkMode, LightMode } from "@mui/icons-material";
-import { IconButton } from "@mui/material";
+import { IconButton, ListItemButton, ListItemIcon, ListItemText } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { lightenHexColor } from "../../libs/utilFunctions"
 import "/node_modules/flag-icons/css/flag-icons.min.css";
@@ -33,7 +33,6 @@ function ThemeButton({setThemeMode, variant}) {
             <>
             { variant === "desktop" ? (
                     <IconButton
-                    variant="contained"
                     onClick={onClickCambia}
                     >
                         {themeMode === "dark" ?
@@ -44,7 +43,27 @@ function ThemeButton({setThemeMode, variant}) {
                     </IconButton>
                 )
                 : 
-                (<div></div>)
+                (<div>
+                    <ListItemButton onClick={onClickCambia}>
+                        <ListItemIcon style={{color: lightenHexColor(theme.palette.primary.dark, 30)}}>
+                            {themeMode === "dark" ?
+                                (<LightMode/>)
+                                :
+                                (<DarkMode/>)
+                            }
+                        </ListItemIcon>
+                        <ListItemText 
+                        style={{
+                            color: lightenHexColor(theme.palette.primary.dark, 0),
+                        }}>
+                            {themeMode === "dark" ?
+                                "Tema chiaro"
+                                :
+                                "Tema scuro"
+                            }
+                        </ListItemText>
+                    </ListItemButton>
+                </div>)
             }
         </>
     )

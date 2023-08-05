@@ -1,13 +1,16 @@
-import { Button, IconButton, AppBar, InputBase, Grid } from "@mui/material";
+import { Button, IconButton, AppBar, InputBase, Grid, useMediaQuery, Menu } from "@mui/material";
 import Divider from '@mui/material/Divider';
 import SearchIcon from '@mui/icons-material/Search';
 import Logo from "../images/logo.png"
 import styled from "@mui/material/styles/styled";
 import { useTheme } from "@mui/system";
 import { useNavigate } from "react-router-dom";
-import { lightenHexColor } from "../libs/utilFunctions"
+import { lightenHexColor, navigateFun } from "../libs/utilFunctions"
 import LanguageButton from "./topbarComponents/LanguageButton";
 import ThemeButton from "./topbarComponents/ThemeButton";
+import { useEffect } from "react";
+import { isUnitless } from "@mui/material/styles/cssUtils";
+import TopBarRightMenu from "./topbarComponents/TopBarRightMenu";
 
 function TopBar({setThemeMode}){
 
@@ -28,20 +31,23 @@ function TopBar({setThemeMode}){
     }));
 
     const theme = useTheme()
+
+    const isDesktopDown = useMediaQuery(theme.breakpoints.down('desktop'));
+
     const navigate = useNavigate()
 
     const unauthButtons = [
-        {key: "discover", text:"Discover", path: "/"},
-        {key: "aboutus", text:"About Us", path: "/"},
+        {key: "discover", text:"Discover", path: "/discover"},
+        {key: "aboutus", text:"About Us", path: "/aboutus"},
         {key: "signin", text:"Log In", path: "/"},
-        {key: "signup", text:"Sign Up", path: "/"}
+        {key: "signup", text:"Sign Up", path: "/signup"}
     ]
 
     return(
         <AppBar className="topbar-appbar">
             <div className="topbar-toolbar">
                 <div className="topbar-logo-container"
-                onClick={() => navigate("/")}
+                onClick={() => navigateFun(navigate, "/", true)}
                 >
                     <img className="topbar-logo" alt="logo" src={Logo}/>
                 </div>
@@ -70,8 +76,8 @@ function TopBar({setThemeMode}){
                             }}/>
                         </IconButton>
                     </div>
-                    <div className="topbar-items">
-                        <Grid container columnSpacing={1}>
+                    <div className={"topbar-items"}>
+                        <Grid container columnSpacing={1} style={{display: isDesktopDown && "none"}}>
                             {unauthButtons.map((button) => (
                                 <Grid key={button.key} item>
                                     <Button 
@@ -81,7 +87,7 @@ function TopBar({setThemeMode}){
                                         backgroundColor: theme.palette.primary.dark, 
                                         textTransform: "none"
                                     }}
-                                    onClick={() => navigate(button.path)}
+                                    onClick={() => navigateFun(navigate, button.path, false)}
                                     >
                                         {button.text}
                                     </Button>
@@ -98,6 +104,9 @@ function TopBar({setThemeMode}){
                             <Grid item>
                                 <ThemeButton setThemeMode={setThemeMode} variant={"desktop"}/>
                             </Grid>
+                        </Grid>
+                        <Grid container columnSpacing={1} style={{display: !isDesktopDown && "none"}}>
+                            <TopBarRightMenu setThemeMode={setThemeMode} />
                         </Grid>
                     </div>
                 </div>

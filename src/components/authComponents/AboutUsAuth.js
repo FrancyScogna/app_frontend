@@ -1,8 +1,11 @@
 import { Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
+import { navigateFun } from "../../libs/utilFunctions";
+import { useNavigate } from "react-router-dom";
 
 function AboutUsAuth(){
     const theme = useTheme();
+    const navigate = useNavigate();
 
     return(
         <div className="auth-aboutus-component">
@@ -28,6 +31,7 @@ function AboutUsAuth(){
                 Puoi diventare anche tu un Creator!
             </Typography>
             <Button
+            onClick={() => navigateFun(navigate, "/aboutus", false)}
             variant="outlined"
             style={{fontSize: "20px", width: "300px", borderRadius: "30px", fontWeight: "bold", marginTop: "30px"}}
             >

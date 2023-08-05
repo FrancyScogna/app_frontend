@@ -1,6 +1,22 @@
 import { createTheme } from '@mui/material/styles';
 
+const breakpointsValues = {
+  values: {
+    mobile: 0,
+    ipad: 815,
+    desktop: 1015,
+    xs: 0,
+    sm: 600,
+    md: 960,
+    lg: 1280,
+    xl: 1920
+  }
+}
+
 export const lightTheme = createTheme({
+    breakpoints: {
+      ...breakpointsValues
+    },
     palette: {
       primary: {
         main: "#a026ff",
@@ -58,6 +74,9 @@ export const lightTheme = createTheme({
   });
 
 export const darkTheme = createTheme({
+    breakpoints: {
+      ...breakpointsValues
+    },
     palette: {
       primary: {
         main: "#6902ba",

@@ -1,3 +1,6 @@
+
+//Questa funzione illumina o meno l'hexcolor inserito come primo parametro
+//variando il secondo parametro.
 function lightenHexColor(hexColor, amount) {
     // Rimuove l'hashtag (#) dal colore, se presente
     hexColor = hexColor.replace("#", "");
@@ -20,6 +23,17 @@ function lightenHexColor(hexColor, amount) {
     return newHexColor;
   }
 
+//Questa funzione permette di cambiare pagina e scrollare verso l'alto
+function navigateFun(navigate, path, reload) {
+  if(reload){
+    window.location.href = path;
+  }else{
+    navigate(path);
+    window.scrollTo(0,0);
+  }
+}
+
 module.exports = {
-  lightenHexColor
+  lightenHexColor,
+  navigateFun
 }
