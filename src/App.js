@@ -11,7 +11,9 @@ import ForgotPasswordCodeForm from "./components/authComponents/ForgotPasswordCo
 import ForgotPasswordForm from "./components/authComponents/ForgotPasswordForm";
 import BottomBar from "./components/BottomBar";
 import { lightTheme, darkTheme } from "./libs/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import i18n from "./libs/i18n";
+import i18next from "i18next";
 
 function App() {
 
@@ -19,6 +21,10 @@ function App() {
   var themeSelected = false;
   storedThemeMode ? themeSelected = true : themeSelected = false;
   const [themeMode, setThemeMode] = useState(themeSelected ? (storedThemeMode === "light" ? lightTheme : darkTheme) : lightTheme);
+
+  useEffect(() => {
+    console.log(i18next.language)
+  })
 
   return (
     <ThemeProvider theme={themeMode}>

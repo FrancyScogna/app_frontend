@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import DiscoverAuth from "../components/authComponents/DiscoverAuth";
 import { Divider } from "@mui/material";
 import AboutUsAuth from "../components/authComponents/AboutUsAuth";
+import { useTranslation } from "react-i18next";
 
 function Authentication(){
     const theme = useTheme();

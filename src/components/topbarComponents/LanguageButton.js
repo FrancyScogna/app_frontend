@@ -4,6 +4,7 @@ import { useTheme } from "@mui/system";
 import { lightenHexColor } from "../../libs/utilFunctions"
 import { useEffect, useState } from "react";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
+import i18next from "i18next";
 
 function LanguageButton({variant}) {
 
@@ -32,6 +33,7 @@ function LanguageButton({variant}) {
     const setLanguage = (language) => {
         window.localStorage.setItem("lang",JSON.stringify({key: language.key, text: language.text}));
         setSelectedLanguage(language);
+        i18next.changeLanguage(language.key);
         handleClose();
     }
 
@@ -51,6 +53,7 @@ function LanguageButton({variant}) {
 
     const selectLanguage = (language) => {
         window.localStorage.setItem("lang",JSON.stringify({key: language.key, text: language.text}));
+        i18next.changeLanguage(language.key);
         setSelectedLanguage(language);
         setOpenDrawer(false);
     }
