@@ -1,4 +1,4 @@
-.bottombar-component {
+.foother-component {
     display: flex;
     width: 100%;
     padding-top: 20px;
@@ -6,26 +6,27 @@
     padding-left: 10%;
     padding-right: 10%;
     flex-direction: column;
+    margin-top: 50px;
 }
 
-.bottombar-top-container {
+.foother-top-container {
     display: flex;
     flex-direction: row;
 }
 
-.bottombar-left-container {
+.foother-left-container {
     display: flex;
     flex: 1;
     margin-left: 20px;
 }
 
-.bottombat-right-container {
+.foother-right-container {
     display: flex;
     flex: 1;
     margin-right: 20px;
 }
 
-.bottombar-bottom-container {
+.foother-bottom-container {
     display: flex;
     margin-top: 10px;
     margin-left: 20px;

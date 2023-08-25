@@ -1,5 +1,5 @@
-import { ArrowBack, Explore, Login, Menu, Mood, Person, QuestionMark } from "@mui/icons-material";
-import { ClickAwayListener, Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery } from "@mui/material";
+import { ArrowBack, Explore, Login, Menu, Person, QuestionMark } from "@mui/icons-material";
+import { Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery } from "@mui/material";
 import { lightenHexColor, navigateFun } from "../../libs/utilFunctions";
 import { useTheme } from "@mui/system";
 import { useState } from "react";

@@ -1,4 +1,4 @@
-import { Button, IconButton, AppBar, InputBase, Grid, useMediaQuery, Menu } from "@mui/material";
+import { Button, IconButton, AppBar, InputBase, Grid, useMediaQuery } from "@mui/material";
 import Divider from '@mui/material/Divider';
 import SearchIcon from '@mui/icons-material/Search';
 import Logo from "../images/logo.png"
@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 import { lightenHexColor, navigateFun } from "../libs/utilFunctions"
 import LanguageButton from "./topbarComponents/LanguageButton";
 import ThemeButton from "./topbarComponents/ThemeButton";
-import { useEffect } from "react";
-import { isUnitless } from "@mui/material/styles/cssUtils";
 import TopBarRightMenu from "./topbarComponents/TopBarRightMenu";
 
 function TopBar({setThemeMode}){

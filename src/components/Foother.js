@@ -1,12 +1,13 @@
-import { ButtonBase, Grid, IconButton, Typography } from "@mui/material";
+import { ButtonBase, Grid, IconButton, Typography, useMediaQuery } from "@mui/material";
 import "./styles.css"
 import { useTheme } from "@mui/system";
 import { Facebook, Twitter, Instagram } from "@mui/icons-material";
 
-function BottomBar(){
+function Foother(){
 
     const theme = useTheme();
     const colorLight = theme.palette.primary.light;
+    const downIpad = useMediaQuery(theme.breakpoints.down("ipad"));
 
     //Link nella bottomBar da settare
     const links = [
@@ -28,14 +29,17 @@ function BottomBar(){
     ]
 
     return(
-        <div className="bottombar-component" 
+        <div className="foother-component" 
         style={{
             backgroundColor: theme.palette.primary.main,
             borderTop: `1px solid ${theme.palette.primary.dark}`
         }}
         >
-            <div className="bottombar-top-container">
-                <div className="bottombar-left-container">
+            <div className="foother-top-container"
+            style={{flexDirection: downIpad && "column"}}
+             >
+                <div className="foother-left-container"
+                style={{marginBottom: downIpad && "20px"}}>
                     <Grid container rowSpacing={1} columnSpacing={1}>
                         {links.map((link) => (
                             <Grid key={link.key} item xs={3}>
@@ -53,7 +57,7 @@ function BottomBar(){
                         ))}
                     </Grid>
                 </div>
-                <div className="bottombat-right-container">
+                <div className="foother-right-container">
                     <Grid container rowSpacing={1} columnSpacing={6} >
                         <Grid item xs={12} marginBottom="-8px">
                             <Typography
@@ -76,7 +80,7 @@ function BottomBar(){
                     </Grid>
                 </div>
             </div>
-            <div className="bottombar-bottom-container">
+            <div className="foother-bottom-container">
                 <Typography
                 variant="subtitle1"
                 color="#c9a0dc"
@@ -88,4 +92,4 @@ function BottomBar(){
     )
 }
 
-export default BottomBar;
+export default Foother;

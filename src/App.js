@@ -9,11 +9,9 @@ import SignupForm from "./components/authComponents/SignupForm";
 import ConfirmForm from "./components/authComponents/ConfirmForm";
 import ForgotPasswordCodeForm from "./components/authComponents/ForgotPasswordCodeForm";
 import ForgotPasswordForm from "./components/authComponents/ForgotPasswordForm";
-import BottomBar from "./components/BottomBar";
+import Foother from "./components/Foother";
 import { lightTheme, darkTheme } from "./libs/theme";
-import { useEffect, useState } from "react";
-import i18n from "./libs/i18n";
-import i18next from "i18next";
+import { useState } from "react";
 
 function App() {
 
@@ -21,10 +19,6 @@ function App() {
   var themeSelected = false;
   storedThemeMode ? themeSelected = true : themeSelected = false;
   const [themeMode, setThemeMode] = useState(themeSelected ? (storedThemeMode === "light" ? lightTheme : darkTheme) : lightTheme);
-
-  useEffect(() => {
-    console.log(i18next.language)
-  })
 
   return (
     <ThemeProvider theme={themeMode}>
@@ -45,7 +39,7 @@ function App() {
       </Routes>
 
       <div className="bottombar-container">
-        <BottomBar />
+        <Foother />
       </div>
 
       </ThemeProvider>

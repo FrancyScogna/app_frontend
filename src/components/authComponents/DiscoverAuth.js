@@ -1,6 +1,5 @@
 import { Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
-import discovery_auth_image from "../../images/discovery_auth_image.png";
 import { navigateFun } from "../../libs/utilFunctions";
 import { useNavigate } from "react-router-dom";
 
@@ -9,13 +8,7 @@ function DiscoverAuth(){
     const navigate = useNavigate();
 
     return(
-        <div className="auth-discover-component" 
-        style={{
-            backgroundImage: `url(${discovery_auth_image})`,
-            backgroundSize: "100% 400px",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center"
-        }}>
+        <div className="auth-discover-component">
             <Typography
             variant="h3"
             align="center"
@@ -25,7 +18,7 @@ function DiscoverAuth(){
                 Scopri cosa ti aspetta!
             </Typography>
             <Typography
-            marginTop="170px"
+            marginTop="20px"
             fontSize="25px"
             align="center"
             fontWeight="bold"

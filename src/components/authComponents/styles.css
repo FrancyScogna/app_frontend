@@ -1,6 +1,6 @@
 .login-container {
-    width: 350px;
     display: flex;
+    width: 350px;
 }
 
 .signup-container {
@@ -29,9 +29,6 @@
     align-items: center;
     flex-direction: column;
     width: 80%;
-    height: 400px;
-    margin-bottom: 50px;
-    margin-top: 50px;
 }
 
 .auth-aboutus-component {
@@ -39,6 +36,4 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    margin-bottom: 50px;
-    margin-top: 50px;
 }
