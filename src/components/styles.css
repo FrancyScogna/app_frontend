@@ -79,3 +79,9 @@
     display: flex;
     margin-left: auto;
 }
+
+.bottombar-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

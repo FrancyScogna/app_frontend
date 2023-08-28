@@ -22,7 +22,7 @@ function TopBar({setThemeMode}){
             [theme.breakpoints.up('sm')]: {
             width: '20ch',
             '&:focus': {
-                width: '40ch',
+                width: '32ch',
             },
             },
         },
@@ -37,8 +37,8 @@ function TopBar({setThemeMode}){
     const unauthButtons = [
         {key: "discover", text:"Discover", path: "/discover"},
         {key: "aboutus", text:"About Us", path: "/aboutus"},
-        {key: "signin", text:"Log In", path: "/"},
-        {key: "signup", text:"Sign Up", path: "/signup"}
+        {key: "signin", text:"Log in", path: "/"},
+        {key: "signup", text:"Sign up", path: "/signup"}
     ]
 
     return(

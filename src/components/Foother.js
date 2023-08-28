@@ -32,7 +32,8 @@ function Foother(){
         <div className="foother-component" 
         style={{
             backgroundColor: theme.palette.primary.main,
-            borderTop: `1px solid ${theme.palette.primary.dark}`
+            borderTop: `1px solid ${theme.palette.primary.dark}`,
+            padding: downIpad && "10px"
         }}
         >
             <div className="foother-top-container"
@@ -40,9 +41,9 @@ function Foother(){
              >
                 <div className="foother-left-container"
                 style={{marginBottom: downIpad && "20px"}}>
-                    <Grid container rowSpacing={1} columnSpacing={1}>
+                    <Grid container rowSpacing={1} columnSpacing={3}>
                         {links.map((link) => (
-                            <Grid key={link.key} item xs={3}>
+                            <Grid key={link.key} item>
                             <ButtonBase
                             onClick={() => window.location.href = link.path}
                             >

@@ -129,6 +129,15 @@ function LanguageButton({variant}) {
                                     <ArrowBack />
                                 </ListItemIcon>
                             </ListItemButton>
+                            <ListItemText 
+                            style={{
+                                color: lightenHexColor(theme.palette.primary.dark, 30),
+                                paddingLeft: "20px"
+                            }}>
+                                <Typography fontSize="20px" fontWeight="bold">
+                                    Seleziona la lingua
+                                </Typography>
+                            </ListItemText>
                             {languages.map((language) => (
                                 <ListItemButton key={language.key} onClick={() => selectLanguage(language)}>
                                     <ListItemIcon style={{color: lightenHexColor(theme.palette.primary.dark, 30)}}>

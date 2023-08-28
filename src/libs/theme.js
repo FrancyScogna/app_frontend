@@ -4,7 +4,7 @@ const breakpointsValues = {
   values: {
     mobile: 0,
     ipad: 815,
-    desktop: 1015,
+    desktop: 1150,
     xs: 0,
     sm: 600,
     md: 960,

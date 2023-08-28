@@ -12,6 +12,7 @@ import ForgotPasswordForm from "./components/authComponents/ForgotPasswordForm";
 import Foother from "./components/Foother";
 import { lightTheme, darkTheme } from "./libs/theme";
 import { useState } from "react";
+import BottomBar from "./components/BottomBar";
 
 function App() {
 
@@ -21,26 +22,29 @@ function App() {
   const [themeMode, setThemeMode] = useState(themeSelected ? (storedThemeMode === "light" ? lightTheme : darkTheme) : lightTheme);
 
   return (
-    <ThemeProvider theme={themeMode}>
-    <CssBaseline />
+      <ThemeProvider theme={themeMode}>
+      <CssBaseline />
 
-      <div className="topbar-container">
-        <TopBar setThemeMode={setThemeMode}/>
-      </div>
+        <div className="topbar-container">
+          <TopBar setThemeMode={setThemeMode}/>
+        </div>
 
-      <Routes>
-        <Route path="/" element={<Authentication />}>
-          <Route path="/" element={<LoginForm/>} />
-          <Route path="/signup" element={<SignupForm/>} />
-          <Route path="/confirmAccount" element={<ConfirmForm/>} />
-          <Route path="/forgotPasswordCode" element={<ForgotPasswordCodeForm />} />
-          <Route path="/forgotPassword" element={<ForgotPasswordForm />} />
-        </Route>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Authentication />}>
+            <Route path="/" element={<LoginForm/>} />
+            <Route path="/signup" element={<SignupForm/>} />
+            <Route path="/confirmAccount" element={<ConfirmForm/>} />
+            <Route path="/forgotPasswordCode" element={<ForgotPasswordCodeForm />} />
+            <Route path="/forgotPassword" element={<ForgotPasswordForm />} />
+          </Route>
+        </Routes>
 
-      <div className="bottombar-container">
-        <Foother />
-      </div>
+        <div className="foother-container">
+          <Foother />
+        </div>
+
+
+        <BottomBar />
 
       </ThemeProvider>
   );
