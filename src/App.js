@@ -13,6 +13,7 @@ import Foother from "./components/Foother";
 import { lightTheme, darkTheme } from "./libs/theme";
 import { useState } from "react";
 import BottomBar from "./components/BottomBar";
+import Profile from "./pages/Profile";
 
 function App() {
 
@@ -37,6 +38,9 @@ function App() {
             <Route path="/forgotPasswordCode" element={<ForgotPasswordCodeForm />} />
             <Route path="/forgotPassword" element={<ForgotPasswordForm />} />
           </Route>
+
+          <Route path="/profile" element={<Profile />} />
+
         </Routes>
 
         <div className="foother-container">
