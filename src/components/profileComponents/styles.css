@@ -1,0 +1,16 @@
+.profile-buttons-grid {
+    margin-top: 5px;
+    display: flex;
+    flex: 1; 
+    justify-content: right;
+    padding-right: 40px;
+}
+
+.buttonsgrid-button{
+    border-radius: 30px;
+    font-weight: bold;
+}
+
+.subscribe-popup-container{
+    width: 900px;
+}

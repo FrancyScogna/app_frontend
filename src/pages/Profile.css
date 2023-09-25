@@ -15,8 +15,6 @@
     flex-direction: column;
     justify-content: center;
     max-width: 55%;
-    border-inline-end: solid 1px gray;
-    border-inline-start: solid 1px gray;
 }
 
 .profile-center-top-container {
@@ -45,7 +43,7 @@
     position: relative;
     display: block;
     width: 20%;
-    min-width: 174px;
+    height: fit-content;
     z-index: 2;
     margin-top: -10%;
     margin-left: 2%;
@@ -61,17 +59,10 @@
     padding-top: 14px;
 }
 
-.profile-buttons-grid {
-    margin-top: 5px;
-    display: flex;
-    flex: 1; 
-    justify-content: right;
-    padding-right: 40px;
-}
-
 .profile-center-bottom-container {
     display: flex;
     flex-direction: column;
+    margin-inline: 15px;
 }
 
 .profile-right-container {
