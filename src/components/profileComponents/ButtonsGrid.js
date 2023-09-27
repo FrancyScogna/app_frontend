@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { lightenHexColor } from "../../libs/utilFunctions";
 import { Container } from "@mui/system";
 import SubscribePopup from "./SubscribePopup";
+import UnsubscribePopup from "./UnsubscribePopup";
 
 function ButtonsGrid({username, nickname}){
 
@@ -54,10 +55,17 @@ function ButtonsGrid({username, nickname}){
     }
 
     const [showSubscribePopup, setShowSubscribePopup] = useState(false);
+    const [showUnsubscribePopup, setShowUnsubscribePopup] = useState(false);
     const onClickSubscribe = () => {
         //se non è abbonato allora esce un popup con gli abbonamenti disponibili
         //se è abbonato allora esce un popup con la conferma della cancellazione dell'abbonamento
-        setShowSubscribePopup(true);
+        if(subscribeCheck){
+            setShowUnsubscribePopup(true);
+            setShowSubscribePopup(false)
+        }else{
+            setShowSubscribePopup(true);
+            setShowUnsubscribePopup(false);
+        }
     }
 
     const [showTipPopup, setShowTipPopup] = useState(false);
@@ -85,7 +93,16 @@ function ButtonsGrid({username, nickname}){
                 onClick={onClickSubscribe}>
                     {subscribeCheck ? "Unsubscribe":"Subscribe"}
                 </Button>
-                <SubscribePopup nickname={nickname} username={username} setOpen={setShowSubscribePopup} open={showSubscribePopup} />
+                <SubscribePopup 
+                nickname={nickname} 
+                username={username} 
+                setOpen={setShowSubscribePopup} 
+                open={showSubscribePopup} />
+                <UnsubscribePopup
+                nickname={nickname} 
+                username={username} 
+                setOpen={setShowUnsubscribePopup} 
+                open={showUnsubscribePopup} />
             </Grid>
             <Grid item>
                 <Button className="buttonsgrid-button" 

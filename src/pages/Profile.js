@@ -1,9 +1,11 @@
 import "./Profile.css";
 import coverImage from "../images/cover-1500x500.png";
 import avatarImage from "../images/avatar-400x400.png";
-import { Avatar, Button, Grid, Typography, useTheme } from "@mui/material";
+import { Avatar, Button, Divider, Grid, Typography, useTheme } from "@mui/material";
 import ButtonsGrid from "../components/profileComponents/ButtonsGrid";
 import { lightenHexColor } from "../libs/utilFunctions";
+import DescriptionBox from "../components/profileComponents/DescriptionBox";
+import { Videocam } from "@mui/icons-material";
 
 function Profile (){
 
@@ -12,6 +14,8 @@ function Profile (){
 
     const username = "User Name";
     const nickname = "nickname";
+    const description = `Ciaooooooooooo`;
+    const vidsCount = 0;
 
     return(
         <div className="main-container">
@@ -21,7 +25,7 @@ function Profile (){
             <div className="profile-center-container" style={{borderInline: `solid 2px ${bordersColor}`}}>
                 <div className="profile-center-top-container">
                     <div className="profile-cover-container" style={{borderBottom: `solid 5px ${bordersColor}`,borderBottomLeftRadius: "10px",borderBottomRightRadius: "10px", overflow: "hidden"}}>
-                        <img className="profile-cover-image" src={coverImage} />
+                        <img src={coverImage} />
                     </div>
                     <div className="profile-avatar-buttons-container">
                         <div className="profile-avatar-container">
@@ -46,7 +50,12 @@ function Profile (){
                     </div>
                 </div>
                 <div className="profile-center-bottom-container">
-                    <h1>Bottom Components</h1>
+                    <div className="profile-media-count">
+                        <Typography>
+                           <Videocam /> {vidsCount} videos
+                        </Typography>
+                    </div>
+                    <DescriptionBox text={description} />
                 </div>
             </div>
             <div className="profile-right-container">
