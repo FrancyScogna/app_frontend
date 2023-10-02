@@ -10,3 +10,36 @@
     border-radius: 30px;
     font-weight: bold;
 }
+
+.profile-media-count{
+    display: flex;
+    margin: 10px;
+}
+
+.profile-media-grid-item {
+    display: flex;
+    align-items: center;
+}
+
+.description-box-container {
+    margin-top: 20px;
+    margin-inline: 5px;
+}
+
+.anagraphic-container {
+    width: fit-content;
+}
+
+.followcounter-container {
+    display: flex;
+    margin-left: 15%;
+    width: fit-content;
+    height: fit-content;
+}
+
+.followcounter-grid-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

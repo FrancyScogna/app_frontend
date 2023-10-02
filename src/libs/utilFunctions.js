@@ -33,7 +33,19 @@ function navigateFun(navigate, path, reload) {
   }
 }
 
+//Questa funzione serve per formattare i numeri maggiori di 10mila con 10k e maggiori di 1milione con 1M
+function formatCount(count) {
+  if (count >= 1000000) {
+    return `${(count / 1000000).toFixed(1)}M`;
+  } else if (count >= 10000) {
+    return `${(count / 1000).toFixed(1)}k`;
+  } else {
+    return count.toString();
+  }
+}
+
 module.exports = {
   lightenHexColor,
-  navigateFun
+  navigateFun,
+  formatCount
 }

@@ -9,15 +9,11 @@ function DescriptionBox({text}) {
         setHide(!hide);
     }
 
-    useEffect(() => {
-        console.log(hide)
-    })
-
     return(
-        <div>
-            <Collapse in={hide} collapsedSize="40px" orientation="vertical">
-                <Typography>
-                    <pre>{text}</pre>
+        <div className="description-box-container">
+            <Collapse in={hide} collapsedSize="37px" orientation="vertical">
+                <Typography style={{whiteSpace: "pre-wrap"}}>
+                    {text}
                 </Typography>
                 <p/>
             </Collapse>

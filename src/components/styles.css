@@ -1,4 +1,5 @@
 .foother-component {
+    position: relative;
     display: flex;
     width: 100%;
     padding-top: 20px;
@@ -6,7 +7,7 @@
     padding-left: 10%;
     padding-right: 10%;
     flex-direction: column;
-    margin-top: 50px;
+    margin-top: auto;
 }
 
 .foother-top-container {
@@ -85,3 +86,20 @@
     bottom: 0;
     width: 100%;
 }
+
+@keyframes pulse {
+    0% {
+      transform: scale(1); /* Ingrandimento normale */
+    }
+    50% {
+      transform: scale(1.1); /* Ingrandimento al 50% dell'animazione */
+    }
+    100% {
+      transform: scale(1); /* Tornare alla dimensione normale */
+    }
+  }
+  
+  /* Applica l'animazione all'elemento con la classe "pulsating-image" */
+  .pulsating-image {
+    animation: pulse 2s infinite; /* Esegui l'animazione per 2 secondi, ripeti all'infinito */
+  }

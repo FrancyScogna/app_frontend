@@ -7,7 +7,7 @@ import { Container } from "@mui/system";
 import SubscribePopup from "./SubscribePopup";
 import UnsubscribePopup from "./UnsubscribePopup";
 
-function ButtonsGrid({username, nickname}){
+function ButtonsGrid({username, nickname, followingCheck, subCheck}){
 
     const theme = useTheme();
     const themeModified = theme;
@@ -27,13 +27,7 @@ function ButtonsGrid({username, nickname}){
         handleClose();
     }
 
-    const [followCheck, setFollowCheck] = useState(false);
-    async function followCheckFun(){
-        //meccanismo da backend per il check del follow unfollow
-        //esempio simulativo: mettiamo che la funzione ponga che i due users non si seguono
-        setFollowCheck(false);
-    }
-
+    const [followCheck, setFollowCheck] = useState(followingCheck);
     const onClickFollowButton = () => {
         //meccanismo da backend per l'aggiunta o rimozione del follower
         if(followCheck){
@@ -47,13 +41,8 @@ function ButtonsGrid({username, nickname}){
         }
     }
 
-    const [subscribeCheck, setSubscribeCheck] = useState(false);
-    async function subscribeCheckFun(){
-        //meccanismo da backend per il check se l'utente è abbonato
-        //esempio simulativo: mettiamo che la funzione ponga che l'utente non è già abbonato
-        setSubscribeCheck(false);
-    }
-
+    console.log(subCheck)
+    const [subscribeCheck, setSubscribeCheck] = useState(subCheck !== null);
     const [showSubscribePopup, setShowSubscribePopup] = useState(false);
     const [showUnsubscribePopup, setShowUnsubscribePopup] = useState(false);
     const onClickSubscribe = () => {
@@ -72,11 +61,6 @@ function ButtonsGrid({username, nickname}){
     const onClickTip = () => {
         setShowTipPopup(true);
     }
-
-    useEffect(() => {
-        followCheckFun();
-        subscribeCheckFun();
-    },[])
 
     return(
         <Grid className="profile-buttons-grid" container columnSpacing={1} rowSpacing={1}>

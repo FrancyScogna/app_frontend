@@ -9,7 +9,7 @@ import SignupForm from "./components/authComponents/SignupForm";
 import ConfirmForm from "./components/authComponents/ConfirmForm";
 import ForgotPasswordCodeForm from "./components/authComponents/ForgotPasswordCodeForm";
 import ForgotPasswordForm from "./components/authComponents/ForgotPasswordForm";
-import Foother from "./components/Foother";
+import Footer from "./components/Footer";
 import { lightTheme, darkTheme } from "./libs/theme";
 import { useState } from "react";
 import BottomBar from "./components/BottomBar";
@@ -44,7 +44,7 @@ function App() {
         </Routes>
 
         <div className="foother-container">
-          <Foother />
+          <Footer />
         </div>
 
 
