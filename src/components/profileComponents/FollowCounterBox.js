@@ -1,7 +1,6 @@
 import { Grid, Typography, useTheme } from "@mui/material";
 import { formatCount, lightenHexColor } from "../../libs/utilFunctions";
 import FollowListPopup from "./FollowListPopup";
-import { useSSR } from "react-i18next";
 import { useState } from "react";
 
 function FollowCounterBox({counters}){
@@ -10,7 +9,7 @@ function FollowCounterBox({counters}){
     const [open, setOpen] = useState(false);
     const [show, setShow] = useState(null);
 
-    const onClickFollowers = () => {
+    const onClickFollowers = () => { 
         setShow("followers");
         setOpen(true);
     }
