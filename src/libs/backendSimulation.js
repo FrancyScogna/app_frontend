@@ -30,6 +30,7 @@ async function getRelationshipCheck(){
     return {checkFollowing, checkFollower};
 }
 
+//Funzione che restituisce se un utente è abbonato al profilo o meno
 async function getSubCheck(){
     //simulazione della data 20 giorni prima di adesso
     const date = new Date();
@@ -47,8 +48,24 @@ async function getSubCheck(){
     return sub;
 }
 
+async function getFollowerList(){
+    const nUsers = 100;
+    const users = {};
+    var i;
+    for(i=0; i<nUsers; i++){
+        const user = {
+            name: faker.person.fullName(),
+            nickname: faker.word.words(1),
+            image: "url"
+        }
+        users[i] = user;
+    }
+    return users;
+}
+
 module.exports = {
     getUserAmplify,
     getRelationshipCheck,
-    getSubCheck
+    getSubCheck,
+    getFollowerList
 }
