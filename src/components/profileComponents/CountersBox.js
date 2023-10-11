@@ -1,30 +1,27 @@
 import { Favorite, Image, SmartDisplay, Videocam } from "@mui/icons-material";
 import { Grid, Typography, useTheme } from "@mui/material";
-import { formatCount, lightenHexColor } from "../../libs/utilFunctions";
+import { formatCount } from "../../libs/utilFunctions";
+import { customStyles } from "./styles/CountersBox";
 
 function CountersBox({counters}){
 
     const theme = useTheme();
-
-    const iconStyle = {
-        marginRight: "3px",
-        color: theme.palette.primary.dark
-    }
+    const styles = customStyles(theme);
 
     const gridsItems = [
-        {key: "1", icon: <Favorite style={iconStyle} />, count: counters.vidsCount, text: "likes"},
-        {key: "2", icon: <Videocam style={iconStyle} />, count: counters.vidsCount, text: "videos"},
-        {key: "3", icon: <Image style={iconStyle} />, count: counters.picsCount, text: "photos"},
-        {key: "4", icon: <SmartDisplay style={iconStyle} />, count: counters.clipsCount, text: "clips"}
+        {key: "1", icon: <Favorite style={styles.counterbox_grid_item_icon} />, count: counters.vidsCount, text: "likes"},
+        {key: "2", icon: <Videocam style={styles.counterbox_grid_item_icon} />, count: counters.vidsCount, text: "videos"},
+        {key: "3", icon: <Image style={styles.counterbox_grid_item_icon} />, count: counters.picsCount, text: "photos"},
+        {key: "4", icon: <SmartDisplay style={styles.counterbox_grid_item_icon} />, count: counters.clipsCount, text: "clips"}
     ]
 
     return(
-        <div className="profile-media-count">
+        <div style={styles.counterbox_main_div}>
             <Grid container columnSpacing={1}>
                 {gridsItems.map((item) => (
-                    <Grid key={item.key} item className="profile-media-grid-item">
+                    <Grid key={item.key} item style={styles.counterbox_grid_item}>
                         {item.icon}
-                        <Typography color={lightenHexColor(theme.palette.primary.dark, 50)} fontSize="15px" paddingTop="3px" fontWeight="bold">
+                        <Typography style={styles.counterbox_grid_item_text}>
                             {formatCount(item.count)} {item.text}
                         </Typography>
                     </Grid>

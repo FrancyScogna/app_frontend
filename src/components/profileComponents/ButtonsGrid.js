@@ -1,16 +1,15 @@
 import { Button, Grid, IconButton, ListItemIcon, Menu, MenuItem, MenuList, Typography, useTheme } from "@mui/material";
-import "./styles.css";
 import { Flag, MoreVert, Share } from "@mui/icons-material";
 import { useState } from "react";
-import { lightenHexColor } from "../../libs/utilFunctions";
 import SubscribePopup from "./SubscribePopup";
 import UnsubscribePopup from "./UnsubscribePopup";
+import { customStyles } from "./styles/ButtonsGrid";
 
 function ButtonsGrid({username, nickname, followingCheck, subCheck}){
 
     const theme = useTheme();
-    const themeModified = theme;
-    themeModified.components = {MuiButton: {styleOverrides: {root: {borderRadius: "30px"}}}};
+    const styles = customStyles(theme);
+    //probabile cambiamento di stile per i bottoni, borderradius 30px
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -61,16 +60,16 @@ function ButtonsGrid({username, nickname, followingCheck, subCheck}){
     }
 
     return(
-        <Grid className="profile-buttons-grid" container columnSpacing={1} rowSpacing={1}>
+        <Grid style={styles.buttonsgrid_main_grid} container columnSpacing={1} rowSpacing={1}>
             <Grid item>
-                <Button className="buttonsgrid-button" 
+                <Button style={styles.buttonsgrid_button} 
                 variant={followCheck ? "outlined":"contained"}
                 onClick={onClickFollowButton}>
                     {followCheck ? "Unfollow":"Follow"}
                 </Button>
             </Grid>
             <Grid item>
-                <Button className="buttonsgrid-button" 
+                <Button style={styles.buttonsgrid_button}
                 variant={subscribeCheck ? "outlined":"contained"}
                 onClick={onClickSubscribe}>
                     {subscribeCheck ? "Unsubscribe":"Subscribe"}
@@ -87,27 +86,27 @@ function ButtonsGrid({username, nickname, followingCheck, subCheck}){
                 open={showUnsubscribePopup} />
             </Grid>
             <Grid item>
-                <Button className="buttonsgrid-button" 
+                <Button style={styles.buttonsgrid_button} 
                 variant="outlined">
                     Message
                 </Button>
             </Grid>
             <Grid item>
-                <Button className="buttonsgrid-button" 
+                <Button style={styles.buttonsgrid_button} 
                 variant="outlined"
                 onClick={onClickTip}>
                     Tip
                 </Button>
             </Grid>
             <Grid item>
-                <IconButton style={{marginRight: "-10px"}}>
-                    <Share style={{color: theme.palette.primary.dark}}/>
+                <IconButton style={styles.buttonsgrid_iconbutton_share}>
+                    <Share style={styles.buttonsgrid_iconbutton_icon_share}/>
                 </IconButton>
             </Grid>
             <Grid item>
                 <IconButton onClick={handleClick}>
                     <MoreVert 
-                    style={{color: lightenHexColor( theme.palette.primary.dark, 70)}}/>
+                    style={styles.buttonsgrid_iconbutton_icon_morevert}/>
                 </IconButton>
                 <Menu
                 anchorEl={anchorEl}
@@ -117,9 +116,9 @@ function ButtonsGrid({username, nickname, followingCheck, subCheck}){
                     <MenuList>
                         <MenuItem onClick={onClickReport}>
                             <ListItemIcon>
-                                <Flag style={{color: theme.palette.primary.dark}}/>
+                                <Flag style={styles.buttonsgrid_listitem_icon}/>
                             </ListItemIcon>
-                            <Typography fontWeight="bold" color={theme.palette.primary.dark}>
+                            <Typography style={styles.buttonsgrid_listitem_text}>
                                 Report
                             </Typography>
                         </MenuItem>

@@ -1,22 +1,17 @@
 import { Typography, useTheme } from "@mui/material";
+import { customStyles } from "./styles/AnagraphicBox"; 
 
 function AnagraphicBox({username, nickname}){
 
     const theme = useTheme();
+    const styles = customStyles(theme);
 
     return(
-        <div className="anagraphic-container">
-            <Typography
-                fontWeight="bold" 
-                fontSize="25px" 
-                color={theme.palette.primary.dark}>
+        <div style={styles.anagraphicbox_main_div}>
+            <Typography style={styles.anagraphicbox_username}>
                     {username}
             </Typography>
-            <Typography 
-                fontWeight="bold" 
-                fontSize="17px"
-                marginTop="-3px"
-                color={theme.palette.primary.light}>
+            <Typography style={styles.anagraphicbox_nickname}>
                         @{nickname}
             </Typography>
         </div>

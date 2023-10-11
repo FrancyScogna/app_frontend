@@ -5,10 +5,13 @@ import { getFollowerList } from "../../libs/backendSimulation";
 import AdaptableUserBox from "./AdaptableUserBox";
 import { handleViewport } from 'react-in-viewport';
 import { formatCount } from '../../libs/utilFunctions';
+import { customStyles } from './styles/FollowListPopup';
 
 function FollowListPopup({ show, open, setOpen, counters }) {
 
     const theme = useTheme();
+    const styles = customStyles(theme);
+
     const title = show === "followers" ? `Followers (${formatCount(counters.followersCount)})` : `Account seguiti (${formatCount(counters.followingCount)})`;
     const textFieldLabel = show === "followers" ? "i followers" : "gli account seguiti";
 
@@ -35,10 +38,10 @@ function FollowListPopup({ show, open, setOpen, counters }) {
     };
 
     const [disableViewport, setDisableViewPort] = useState(false)
-    const Block = ({inViewport, forwardedRef}) => {
+    const Block = ({forwardedRef}) => {
         return (
-            <div className="viewport-block" ref={forwardedRef} style={{ display: "flex", justifyContent: "center"}}>
-                <CircularProgress className="mt-3" size={"50px"} sx={{color: theme.palette.primary.dark}} />
+            <div ref={forwardedRef} style={styles.followlistpopup_viewportblock}>
+                <CircularProgress style={styles.followlistpopup_viewportblock_icon} />
             </div>
         )
       };
@@ -48,25 +51,27 @@ function FollowListPopup({ show, open, setOpen, counters }) {
     return (
 
         <Dialog open={open} onClose={() => setOpen(false)}>
-            <div style={{ width: "500px", maxHeight: "500px", overflowY: "auto" }}>
-                <Grid container padding="15px" rowSpacing={1} marginBottom="20px">
-                    <Grid item xs={12} style={{ display: "flex", justifyContent: "end", padding: "0px" }}>
-                        <IconButton onClick={() => setOpen(false)} style={{ padding: "0px" }}>
+            <div style={styles.followlistpopup_main_div}>
+                <Grid container style={styles.followlistpopup_grid_sticky} rowSpacing={1}>
+                    <Grid item xs={12} style={styles.followlistpopup_grid_item_closebutton}>
+                        <IconButton onClick={() => setOpen(false)}>
                             <Close />
                         </IconButton>
                     </Grid>
                     <Grid item xs={12}>
-                        <Typography variant="h5" fontWeight="bold" align="center" color={theme.palette.primary.dark}>
+                        <Typography variant="h5" align="center" style={styles.followlistpopup_grid_item_title_text}>
                             {title}
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Divider />
                     </Grid>  
-                    <Grid item xs={12} style={{display: "flex", justifyContent: "center"}}>
+                </Grid>
+                <Grid container style={styles.followlistpopup_grid} rowSpacing={1}>
+                    <Grid item xs={12} style={styles.followlistpopup_grid_item_searchbar}>
                     <TextField
                     label={`Cerca tra ${textFieldLabel}`}
-                    style={{width: "90%"}}
+                    style={styles.followlistpopup_searchbar}
                     InputProps={{
                     endAdornment: (
                         <InputAdornment position="end">
@@ -78,7 +83,7 @@ function FollowListPopup({ show, open, setOpen, counters }) {
                     />
                     </Grid>
                     {items.map((item, index) => (
-                        <Grid key={index} style={{ marginInline: "10px" }} item xs={12}>
+                        <Grid key={index} style={styles.followlistpopup_grid_item_userbox} item xs={12}>
                             <AdaptableUserBox user={item} mousePosition={mousePosition} setMousePosition={setMousePosition}/>
                         </Grid>
                     ))}
