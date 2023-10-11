@@ -16,7 +16,7 @@ async function getUserAmplify(){
                 picsCount: 10999,
                 clipsCount: 23,
                 followersCount: 400,
-                followingCount: 15
+                followingCount: 150
             }
         }
     }
@@ -48,24 +48,29 @@ async function getSubCheck(){
     return sub;
 }
 
-async function getFollowerList(){
-    const nUsers = 100;
-    const users = {};
+const users = [];
+
+for (let i = 0; i < 70; i++) {
+  const user = {
+    name: faker.person.fullName(),
+    nickname: faker.lorem.word(),
+    image: "url",
+    follows: Math.random() < 0.5
+  };
+  users.push(user);
+}
+
+async function getFollowerList(index, nUsers){
     var i;
-    for(i=0; i<nUsers; i++){
-        const user = {
-            name: faker.person.fullName(),
-            nickname: faker.word.words(1),
-            image: "url"
-        }
-        users[i] = user;
-    }
-    return users;
+    var usersSliced;
+    usersSliced = users.slice(index, index+nUsers);
+    return usersSliced;
 }
 
 module.exports = {
     getUserAmplify,
     getRelationshipCheck,
     getSubCheck,
-    getFollowerList
+    getFollowerList,
+    users
 }

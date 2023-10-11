@@ -26,7 +26,7 @@ function FollowCounterBox({counters}){
 
     return(
         <div className="followcounter-container">
-            <FollowListPopup show={show} open={open} setOpen={setOpen} />
+            <FollowListPopup show={show} open={open} setOpen={setOpen} counters={counters} />
             <Grid container columnSpacing={1.5}>
                 {itemsGrid.map((item) => (
                     <Grid key={item.key} onClick={item.onClickFn} item className="followcounter-grid-item">

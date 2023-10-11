@@ -1,6 +1,5 @@
 import { Close } from "@mui/icons-material";
-import { Button, Dialog, DialogTitle, Divider, Grid, Icon, IconButton, Typography, useTheme } from "@mui/material";
-import { lightenHexColor } from "../../libs/utilFunctions";
+import { Button, Dialog, Divider, Grid, IconButton, Typography, useTheme } from "@mui/material";
 
 function UnsubscribePopup ({username, nickname, type, open, setOpen}){
 

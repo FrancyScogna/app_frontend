@@ -1,9 +1,8 @@
 import { Button, Grid, IconButton, ListItemIcon, Menu, MenuItem, MenuList, Typography, useTheme } from "@mui/material";
 import "./styles.css";
 import { Flag, MoreVert, Share } from "@mui/icons-material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { lightenHexColor } from "../../libs/utilFunctions";
-import { Container } from "@mui/system";
 import SubscribePopup from "./SubscribePopup";
 import UnsubscribePopup from "./UnsubscribePopup";
 
@@ -41,7 +40,6 @@ function ButtonsGrid({username, nickname, followingCheck, subCheck}){
         }
     }
 
-    console.log(subCheck)
     const [subscribeCheck, setSubscribeCheck] = useState(subCheck !== null);
     const [showSubscribePopup, setShowSubscribePopup] = useState(false);
     const [showUnsubscribePopup, setShowUnsubscribePopup] = useState(false);

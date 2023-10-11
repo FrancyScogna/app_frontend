@@ -37,7 +37,7 @@ function Profile (){
                     setBlocked(false);
                 }else{
                     setBlocked(true);
-                }},3000);
+                }},0);
 
                 //Ricezione dei dati dalla relationship table
                 const {checkFollowing, checkFollower} = await getRelationshipCheck();

@@ -43,3 +43,9 @@
     align-items: center;
     cursor: pointer;
 }
+
+.viewport-block {
+    display: flex;
+    width: 100%;
+    margin: 20px;
+}
