@@ -10,7 +10,7 @@ import AnagraphicBox from "../components/profileComponents/AnagraphicBox";
 import FollowCounterBox from "../components/profileComponents/FollowCounterBox";
 import { useEffect, useState } from "react";
 import { getRelationshipCheck, getSubCheck, getUserAmplify } from "../libs/backendSimulation";
-import LoadingPage from "../components/LoadingPage";
+import LoadingPage from "../components/appComponents/LoadingPage";
 
 function Profile (){
 

@@ -1,6 +1,5 @@
 import { ThemeProvider } from "@mui/system";
 import { CssBaseline } from "@mui/material";
-import TopBar from "./components/TopBar";
 import "./App.css";
 import Authentication from "./pages/Authentication";
 import { Route, Routes } from "react-router-dom";
@@ -9,11 +8,12 @@ import SignupForm from "./components/authComponents/SignupForm";
 import ConfirmForm from "./components/authComponents/ConfirmForm";
 import ForgotPasswordCodeForm from "./components/authComponents/ForgotPasswordCodeForm";
 import ForgotPasswordForm from "./components/authComponents/ForgotPasswordForm";
-import Footer from "./components/Footer";
 import { lightTheme, darkTheme } from "./libs/theme";
 import { useState } from "react";
-import BottomBar from "./components/BottomBar";
+import BottomBar from "./components/appComponents/BottomBar";
 import Profile from "./pages/Profile";
+import Foother from "./components/appComponents/Foother";
+import TopBar from "./components/appComponents/TopBar";
 
 function App() {
 
@@ -44,7 +44,7 @@ function App() {
         </Routes>
 
         <div className="foother-container">
-          <Footer />
+          <Foother />
         </div>
 
 

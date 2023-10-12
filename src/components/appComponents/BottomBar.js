@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useTheme } from "@mui/system";
 import { Explore, Login, Person, QuestionMark } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { navigateFun } from "../libs/utilFunctions";
+import { navigateFun } from "../../libs/utilFunctions";
 
 function BottomBar(){
     const [value, setValue] = useState(0);

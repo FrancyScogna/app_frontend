@@ -1,16 +1,17 @@
 import { ArrowBack, Explore, Login, Menu, Person, QuestionMark } from "@mui/icons-material";
 import { Divider, Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, useMediaQuery } from "@mui/material";
-import { lightenHexColor, navigateFun } from "../../libs/utilFunctions";
+import { navigateFun } from "../../libs/utilFunctions";
 import { useTheme } from "@mui/system";
 import { useState } from "react";
-import "./styles.css";
 import LanguageButton from "./LanguageButton";
 import ThemeButton from "./ThemeButton";
 import { useNavigate } from "react-router-dom";
+import { customStyles } from "./styles/TopBarRightMenu";
 
 function TopBarRightMenu({setThemeMode}){
 
     const theme = useTheme();
+    const styles = customStyles(theme);
     const isIpadDown = useMediaQuery(theme.breakpoints.down('ipad'))
 
     const navigate = useNavigate();
@@ -40,7 +41,7 @@ function TopBarRightMenu({setThemeMode}){
         <IconButton
         onClick={onClickMenu}
         >
-            <Menu style={{color: lightenHexColor(theme.palette.primary.light, 40)}} />
+            <Menu style={styles.topbarrightmenu_iconbutton_icon} />
         </IconButton>
         <Drawer 
         anchor="right"
@@ -51,13 +52,11 @@ function TopBarRightMenu({setThemeMode}){
                 <List>
                     {listItems.map((listItem) => (
                         <ListItemButton key={listItem.key} onClick={() => {setOpen(false); navigateFun(navigate, listItem.path, false)}}>
-                            <ListItemIcon style={{color: lightenHexColor(theme.palette.primary.dark, 30)}}>
+                            <ListItemIcon style={styles.topbarrightmenu_listitem_icon}>
                                 {listItem.icon}
                             </ListItemIcon>
                             <ListItemText 
-                            style={{
-                                color: lightenHexColor(theme.palette.primary.dark, 0),
-                            }}>
+                            style={styles.topbarrightmenu_listitem_text}>
                                 {listItem.text}
                             </ListItemText>
                         </ListItemButton>

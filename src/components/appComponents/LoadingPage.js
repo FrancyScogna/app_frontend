@@ -1,5 +1,5 @@
 import { Backdrop } from "@mui/material";
-import  Logo from "../images/logo.png";
+import  Logo from "../../images/logo.png";
 
 function LoadingPage({loading}){
     return (

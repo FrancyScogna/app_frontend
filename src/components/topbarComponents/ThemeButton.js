@@ -4,10 +4,14 @@ import { useTheme } from "@mui/system";
 import { lightenHexColor } from "../../libs/utilFunctions"
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import { lightTheme, darkTheme } from "../../libs/theme";
+import { customStylesDesktop, customStylesMobile } from "./styles/ThemeButton";
 
 function ThemeButton({setThemeMode, variant}) {
 
     const theme = useTheme();
+    const stylesDesktop = customStylesDesktop(theme);
+    const stylesMobile = customStylesMobile(theme);
+
     var themeMode = localStorage.getItem("themeMode");
 
     const onClickCambia = () => {
@@ -36,16 +40,16 @@ function ThemeButton({setThemeMode, variant}) {
                     onClick={onClickCambia}
                     >
                         {themeMode === "dark" ?
-                            (<LightMode style={{color: lightenHexColor(theme.palette.primary.light, 40)}}/>)
+                            (<LightMode style={stylesDesktop.themebutton_icon}/>)
                             :
-                            (<DarkMode style={{color: lightenHexColor(theme.palette.primary.light, 40)}}/>)
+                            (<DarkMode style={stylesDesktop.themebutton_icon}/>)
                         }
                     </IconButton>
                 )
                 : 
                 (<div>
                     <ListItemButton onClick={onClickCambia}>
-                        <ListItemIcon style={{color: lightenHexColor(theme.palette.primary.dark, 30)}}>
+                        <ListItemIcon style={stylesMobile.themebutton_listitem_icon}>
                             {themeMode === "dark" ?
                                 (<LightMode/>)
                                 :
@@ -53,9 +57,7 @@ function ThemeButton({setThemeMode, variant}) {
                             }
                         </ListItemIcon>
                         <ListItemText 
-                        style={{
-                            color: lightenHexColor(theme.palette.primary.dark, 0),
-                        }}>
+                        style={stylesMobile.themebutton_listitem_text}>
                             {themeMode === "dark" ?
                                 "Tema chiaro"
                                 :
