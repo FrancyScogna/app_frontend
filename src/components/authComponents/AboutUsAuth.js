@@ -2,28 +2,26 @@ import { Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { navigateFun } from "../../libs/utilFunctions";
 import { useNavigate } from "react-router-dom";
+import { customStyles } from "./styles/AboutUsAuth";
 
 function AboutUsAuth(){
     const theme = useTheme();
+    const styles = customStyles(theme);
     const navigate = useNavigate();
 
     return(
-        <div className="auth-aboutus-component">
+        <div style={styles.aboutusauth_main_div}>
             <Typography
             variant="h3"
             align="center"
-            fontWeight="bold"
-            color={theme.palette.primary.dark}
+            style={styles.aboutusauth_title_text}
             >
                 Cos'è Ptok?
             </Typography>
-            <Typography
-            fontSize="22px"
-            marginTop="22px"
+            <Typography    
             align="left"
             component="p"
-            width="78%"
-            color={theme.palette.primary.light}
+            style={styles.aboutusauth_description_text}
             >
                 Ptok è un avvincente social network che offre contenuti esclusivi e coinvolgenti.<br/>
                 Scopri post, video e altro ancora attraverso un'esperienza di scorrimento intuitiva e interattiva.<br/>
@@ -33,7 +31,7 @@ function AboutUsAuth(){
             <Button
             onClick={() => navigateFun(navigate, "/aboutus", false)}
             variant="outlined"
-            style={{fontSize: "20px", width: "300px", borderRadius: "30px", fontWeight: "bold", marginTop: "30px"}}
+            style={styles.aboutusauth_button}
             >
                 About us
             </Button>

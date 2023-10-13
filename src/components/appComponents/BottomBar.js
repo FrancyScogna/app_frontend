@@ -4,12 +4,15 @@ import { useTheme } from "@mui/system";
 import { Explore, Login, Person, QuestionMark } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
 import { navigateFun } from "../../libs/utilFunctions";
+import { customStyles } from "./styles/BottomBar";
 
 function BottomBar(){
     const [value, setValue] = useState(0);
 
     const theme = useTheme();
     const downDesktop = useMediaQuery(theme.breakpoints.down("desktop"))
+    const styles = customStyles(theme, downDesktop);
+
     const navigate = useNavigate();
 
     const body = document.body;
@@ -44,7 +47,7 @@ function BottomBar(){
     }
 
     return (
-        <div className="bottombar-container" style={{display: !downDesktop && "none"}}>
+        <div style={styles.bottombar_container}>
             <BottomNavigation
                 showLabels
                 value={value}

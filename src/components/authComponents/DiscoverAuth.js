@@ -2,27 +2,25 @@ import { Button, Typography } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { navigateFun } from "../../libs/utilFunctions";
 import { useNavigate } from "react-router-dom";
+import { customStyles } from "./styles/DiscoverAuth";
 
 function DiscoverAuth(){
     const theme = useTheme();
+    const styles = customStyles(theme);
     const navigate = useNavigate();
 
     return(
-        <div className="auth-discover-component">
+        <div style={styles.discoverauth_main_div}>
             <Typography
             variant="h3"
             align="center"
-            fontWeight="bold"
-            color={theme.palette.primary.dark}
+            style={styles.discoverauth_title_text}
             >
                 Scopri cosa ti aspetta!
             </Typography>
             <Typography
-            marginTop="20px"
-            fontSize="25px"
             align="center"
-            fontWeight="bold"
-            color={theme.palette.primary.light}
+            style={styles.discoverauth_description_text}
             >
                 Esplora Ptok e non perderti le novità,<br/>
                 iscriviti per migliorare la tua esperienza nell'app.
@@ -30,7 +28,7 @@ function DiscoverAuth(){
             <Button
             variant="outlined"
             onClick={() => navigateFun(navigate, "/discover", false)}
-            style={{fontSize: "20px", width: "300px", borderRadius: "30px", fontWeight: "bold", marginTop: "20px"}}
+            style={styles.discoverauth_button}
             >
                 Discover
             </Button>

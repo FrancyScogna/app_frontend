@@ -1,13 +1,13 @@
 import { ButtonBase, Grid, IconButton, Typography, useMediaQuery } from "@mui/material";
-import "./styles.css"
 import { useTheme } from "@mui/system";
 import { Facebook, Twitter, Instagram } from "@mui/icons-material";
+import { customStyles } from "./styles/Foother";
 
 function Foother(){
 
     const theme = useTheme();
-    const colorLight = theme.palette.primary.light;
     const downIpad = useMediaQuery(theme.breakpoints.down("ipad"));
+    const styles = customStyles(theme, downIpad);
 
     //Link nella bottomBar da settare
     const links = [
@@ -23,24 +23,15 @@ function Foother(){
 
     //Link dei social da settare
     const socials = [
-        {key: "facebook", path: "/", icon: (<Facebook style={{color: colorLight, fontSize: "35px"}}/>)},
-        {key: "twitter", path: "/", icon: (<Twitter style={{color: colorLight, fontSize: "35px"}}/>)},
-        {key: "instagram", path: "/", icon: (<Instagram style={{color: colorLight, fontSize: "35px"}}/>)}
+        {key: "facebook", path: "/", icon: (<Facebook style={styles.foother_right_div_socialicons}/>)},
+        {key: "twitter", path: "/", icon: (<Twitter style={styles.foother_right_div_socialicons}/>)},
+        {key: "instagram", path: "/", icon: (<Instagram style={styles.foother_right_div_socialicons}/>)}
     ]
 
     return(
-        <div className="foother-component" 
-        style={{
-            backgroundColor: theme.palette.primary.main,
-            borderTop: `1px solid ${theme.palette.primary.dark}`,
-            padding: downIpad && "10px"
-        }}
-        >
-            <div className="foother-top-container"
-            style={{flexDirection: downIpad && "column"}}
-             >
-                <div className="foother-left-container"
-                style={{marginBottom: downIpad && "20px"}}>
+        <div style={styles.foother_main_div}>
+            <div style={styles.foother_top_div}>
+                <div style={styles.foother_left_div}>
                     <Grid container rowSpacing={1} columnSpacing={3}>
                         {links.map((link) => (
                             <Grid key={link.key} item>
@@ -48,8 +39,7 @@ function Foother(){
                             onClick={() => window.location.href = link.path}
                             >
                                 <Typography
-                                color={colorLight}
-                                fontWeight="bold"
+                                style={styles.foother_link_text}
                                 >
                                     {link.name}
                                 </Typography>
@@ -58,13 +48,12 @@ function Foother(){
                         ))}
                     </Grid>
                 </div>
-                <div className="foother-right-container">
+                <div style={styles.foother_right_div}>
                     <Grid container rowSpacing={1} columnSpacing={6} >
-                        <Grid item xs={12} marginBottom="-8px">
+                        <Grid item xs={12} style={styles.foother_right_div_grid_item_title}>
                             <Typography
                             variant="button"
-                            fontSize="15px"
-                            color={colorLight}
+                            style={styles.foother_right_div_title_text}
                             >
                                 social:
                             </Typography>
@@ -81,10 +70,10 @@ function Foother(){
                     </Grid>
                 </div>
             </div>
-            <div className="foother-bottom-container">
+            <div style={styles.foother_bottom_div}>
                 <Typography
                 variant="subtitle1"
-                color="#c9a0dc"
+                style={styles.foother_bottom_div_text}
                 >
                     2023 © ptok.com. All rights reserved.
                 </Typography>

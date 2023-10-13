@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Alert, FormControl, Grid, TextField, Typography, useTheme } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import "./styles.css";
+import { customStyles } from "./styles/ForgotPasswordCodeForm";
 
 function ForgotPasswordCodeForm(){
 
@@ -119,19 +119,21 @@ function ForgotPasswordCodeForm(){
         }
     }
 
+    const styles = customStyles(theme, alert);
+
     return(
-        <div className="forgot-code-container">
+        <div style={styles.forgotpasswordcode_main_div}>
             <FormControl component="form">
-                <Grid container rowSpacing={2} columnSpacing={1} display="flex">
+                <Grid container rowSpacing={2} columnSpacing={1} style={styles.forgotpasswordcode_grid_container}>
                     <Grid item xs={12}>
-                        <Typography variant="h4" align="center" color="primary" fontWeight="bold">
+                        <Typography variant="h4" align="center" style={styles.forgotpasswordcode_title}>
                             Recupera Password
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <div 
                         id="text_container" 
-                        style={{padding: "10px", backgroundColor: theme.palette.background.paper, borderRadius: "10px"}}>
+                        style={styles.forgotpasswordcode_description_div}>
                             <Typography 
                             variant="body1"
                             align="left">
@@ -142,9 +144,9 @@ function ForgotPasswordCodeForm(){
                     <Grid item xs={12}>
                         <Alert
                         severity="error"
-                        style={{marginTop: "3px", display: !alert && "none"}}
+                        style={styles.forgotpasswordcode_error_alert}
                         >
-                            <ul style={{marginLeft: "-24px", marginTop: "0px", marginBottom: "0px"}}>
+                            <ul style={styles.forgotpasswordcode_error_alert_ul}>
                             {message.map((message) => (
                                 message.visible && (
                                 <Typography key={message.key} fontSize="13px">

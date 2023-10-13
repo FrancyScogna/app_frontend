@@ -1,11 +1,12 @@
-import { Alert, Checkbox, FormControl, FormControlLabel, Grid, TextField, Typography } from "@mui/material";
-import "./styles.css";
+import { Alert, Checkbox, FormControl, FormControlLabel, Grid, TextField, Typography, useTheme } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { customStyles } from "./styles/SignupForm";
 
 function SignupForm(){
 
+    const theme = useTheme();
     const navigate = useNavigate();
 
     //Variabili per il settaggio e il controllo del nickname.
@@ -266,21 +267,23 @@ function SignupForm(){
         }
     }
 
+    const styles = customStyles(theme, alert);
+
     return(
-        <div className="signup-container">
+        <div style={styles.signupform_main_div}>
             <FormControl component="form">
-                <Grid container rowSpacing={2} columnSpacing={1} display="flex">
+                <Grid container rowSpacing={2} columnSpacing={1} style={styles.signupform_grid_container}>
                     <Grid item xs={12}>
-                        <Typography variant="h4" align="center" color="primary" fontWeight="bold">
+                        <Typography variant="h4" align="center" style={styles.signupform_title}>
                             Registrati
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Alert
                         severity="error"
-                        style={{marginTop: "3px", display: !alert && "none"}}
+                        style={styles.signupform_error_alert}
                         >
-                            <ul style={{marginLeft: "-24px", marginTop: "0px", marginBottom: "0px"}}>
+                            <ul style={styles.signupform_error_alert_ul}>
                             {message.map((message) => (
                                 message.visible && (
                                 <Typography key={message.key} fontSize="13px">
@@ -385,8 +388,7 @@ function SignupForm(){
                         }
                         label={
                             <Typography 
-                            marginLeft="-5px"
-                            fontSize="15px">
+                            style={styles.signupform_checkbox}>
                                 Accetta i nostri termini e condizioni.
                             </Typography>
                         }/>
@@ -398,8 +400,7 @@ function SignupForm(){
                         } 
                         label={
                             <Typography 
-                            marginLeft="-5px"
-                            fontSize="15px">
+                            style={styles.signupform_checkbox}>
                                 Ho più di 18 anni.
                             </Typography>
                         }/>
@@ -422,10 +423,10 @@ function SignupForm(){
                                 <Typography 
                                 align="right"
                                 variant="subtitle1" 
-                                fontSize="15px"
+        
                                 tabIndex={0}
                                 onClick={onClickLogin}
-                                style={{cursor: "pointer", marginTop:"9px", marginRight: "5px", marginBottom: "10px"}}>
+                                style={styles.signupform_accountyet_text}>
                                     Hai già un account? Effettua l'accesso.
                                 </Typography>
                             </Grid>

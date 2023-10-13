@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Alert, Button, Checkbox, Divider, FormControl, FormControlLabel, Grid, TextField, Typography } from "@mui/material";
+import { Alert, Button, Checkbox, Divider, FormControl, FormControlLabel, Grid, TextField, Typography, useTheme } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import "./styles.css";
+import { customStyles } from "./styles/LoginForm";
 
 function LoginForm(){
 
+    const theme = useTheme();
     const navigate = useNavigate();
 
     //Variabili per il settaggio e il controllo dell'email.
@@ -189,21 +190,23 @@ function LoginForm(){
         navigate("/signup")
     }
 
+    const styles = customStyles(theme, alert);
+
     return(
-        <div className="login-container">
+        <div style={styles.loginform_main_div}>
             <FormControl component="form">
-                <Grid container rowSpacing={2} columnSpacing={1} display="flex">
+                <Grid container rowSpacing={2} columnSpacing={1} style={styles.loginform_grid_container}>
                     <Grid item xs={12}>
-                        <Typography variant="h4" align="center" color="primary" fontWeight="bold">
+                        <Typography variant="h4" align="center" style={styles.loginform_title}>
                             Accedi
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <Alert
                         severity="error"
-                        style={{marginTop: "3px", display: !alert && "none"}}
+                        style={styles.loginform_error_alert}
                         >
-                            <ul style={{marginLeft: "-24px", marginTop: "0px", marginBottom: "0px"}}>
+                            <ul style={styles.loginform_error_alert_ul}>
                             {message.map((message) => (
                                 message.visible && (
                                 <Typography key={message.key} fontSize="13px">
@@ -256,7 +259,7 @@ function LoginForm(){
                                 fontSize="15px"
                                 onClick={onClickForgotPassword}
                                 tabIndex={0}
-                                style={{cursor: "pointer", marginTop:"9px", marginRight: "5px", marginBottom: "10px"}}>
+                                style={styles.loginform_forgotpassword_text}>
                                     Hai dimenticato la password?
                                 </Typography>
                             </Grid>

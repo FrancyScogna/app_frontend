@@ -9,6 +9,8 @@ import { lightenHexColor, navigateFun } from "../../libs/utilFunctions"
 import LanguageButton from "../topbarComponents/LanguageButton";
 import ThemeButton from "../topbarComponents/ThemeButton";
 import TopBarRightMenu from "../topbarComponents/TopBarRightMenu";
+import { customStyles } from "./styles/TopBar";
+
 
 function TopBar({setThemeMode}){
 
@@ -29,8 +31,8 @@ function TopBar({setThemeMode}){
     }));
 
     const theme = useTheme()
-
     const isDesktopDown = useMediaQuery(theme.breakpoints.down('desktop'));
+    const styles = customStyles(theme, isDesktopDown);
 
     const navigate = useNavigate()
 
@@ -42,49 +44,35 @@ function TopBar({setThemeMode}){
     ]
 
     return(
-        <AppBar className="topbar-appbar">
-            <div className="topbar-toolbar">
-                <div className="topbar-logo-container"
+        <AppBar style={styles.topbar_appbar}>
+            <div style={styles.topbar_toolbar_div}>
+                <div style={styles.topbar_logo_div}
                 onClick={() => navigateFun(navigate, "/", true)}
                 >
-                    <img className="topbar-logo" alt="logo" src={Logo}/>
+                    <img style={styles.topbar_logo} alt="logo" src={Logo}/>
                 </div>
-                <div className="topbar-items-container">
-                    <div className="topbar-search-container" 
-                    style={{
-                        backgroundColor: lightenHexColor(theme.palette.primary.dark, 30),
-                        borderRadius: "10px"
-                    }}
-                    >
+                <div style={styles.topbar_items_div}>
+                    <div style={styles.topbar_search_div}>
                         <StyledInputBase
                         placeholder="Cerca..."
                         inputProps={{ 'aria-label': 'search' }}
                         />
                         <IconButton
                         type="button"
-                        style={{ 
-                            p: "10px", 
-                            width: "48px" 
-                        }}
+                        style={styles.topbar_search_iconbutton}
                         aria-label="search"
                         >
                             <SearchIcon 
-                            style={{
-                                color: lightenHexColor(theme.palette.primary.light, -40)
-                            }}/>
+                            style={styles.topbar_search_iconbutton_icon}/>
                         </IconButton>
                     </div>
-                    <div className={"topbar-items"}>
-                        <Grid container columnSpacing={1} style={{display: isDesktopDown && "none"}}>
+                    <div style={styles.topbar_items}>
+                        <Grid container columnSpacing={1} style={styles.topbar_items_grid_container_desktop}>
                             {unauthButtons.map((button) => (
                                 <Grid key={button.key} item>
                                     <Button 
                                     variant="contained"
-                                    style={{ 
-                                        fontSize: '16px', 
-                                        backgroundColor: theme.palette.primary.dark, 
-                                        textTransform: "none"
-                                    }}
+                                    style={styles.topbar_items_grid_desktop_button}
                                     onClick={() => navigateFun(navigate, button.path, false)}
                                     >
                                         {button.text}
@@ -94,7 +82,7 @@ function TopBar({setThemeMode}){
                             <Grid item>
                                 <Divider 
                                 orientation="vertical" 
-                                style={{paddingInline: "5px"}}/>
+                                style={styles.topbar_items_grid_divider}/>
                             </Grid>
                             <Grid item>
                                 <LanguageButton variant={"desktop"}/>
@@ -103,7 +91,7 @@ function TopBar({setThemeMode}){
                                 <ThemeButton setThemeMode={setThemeMode} variant={"desktop"}/>
                             </Grid>
                         </Grid>
-                        <Grid container columnSpacing={1} style={{display: !isDesktopDown && "none"}}>
+                        <Grid container columnSpacing={1} style={styles.topbar_items_grid_container_mobile}>
                             <TopBarRightMenu setThemeMode={setThemeMode} />
                         </Grid>
                     </div>

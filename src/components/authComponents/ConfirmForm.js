@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Alert, FormControl, Grid, Snackbar, TextField, Typography, useTheme } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
-import "./styles.css";
+import { customStyles } from "./styles/ConfirmForm";
 
 function ConfirmForm(){
 
     const navigate = useNavigate();
     const theme = useTheme();
-    const email = localStorage.getItem("email")
+    const email = localStorage.getItem("email");
 
     useEffect(() => {
         if(!email){
@@ -181,19 +181,21 @@ function ConfirmForm(){
         }
     }
 
+    const styles = customStyles(theme, alert);
+
     return(
-        <div className="confirm-container">
+        <div style={styles.confirmform_main_div}>
             <FormControl component="form">
-                <Grid container rowSpacing={2} columnSpacing={1} display="flex">
+                <Grid container rowSpacing={2} columnSpacing={1} style={styles.confirmform_grid_container}>
                     <Grid item xs={12}>
-                        <Typography variant="h4" align="center" color="primary" fontWeight="bold">
+                        <Typography variant="h4" align="center" style={styles.confirmform_title}>
                             Conferma Account
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
                         <div 
                         id="text_container" 
-                        style={{padding: "10px", backgroundColor: theme.palette.background.paper, borderRadius: "10px"}}>
+                        style={styles.confirmform_description_div}>
                             <Typography 
                             variant="body1"
                             align="left">
@@ -205,9 +207,9 @@ function ConfirmForm(){
                     <Grid item xs={12}>
                         <Alert
                         severity="error"
-                        style={{marginTop: "3px", display: !alert && "none"}}
+                        style={styles.confirmform_error_alert}
                         >
-                            <ul style={{marginLeft: "-24px", marginTop: "0px", marginBottom: "0px"}}>
+                            <ul style={styles.confirmform_error_alert_ul}>
                             {message.map((message) => (
                                 message.visible && (
                                 <Typography key={message.key} fontSize="13px">
@@ -235,7 +237,7 @@ function ConfirmForm(){
                                 fontSize="15px"
                                 tabIndex={0}
                                 onClick={onClickResendCode}
-                                style={{cursor: "pointer", marginTop:"9px", marginRight: "5px"}}>
+                                style={styles.confirmform_resendcode_text}>
                                     Non hai ricevuto il codice? Rinvia codice.
                                 </Typography>
                             </Grid>

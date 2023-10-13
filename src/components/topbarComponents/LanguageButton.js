@@ -1,7 +1,6 @@
 import { ArrowBack, Language } from "@mui/icons-material";
 import { Drawer, IconButton, List, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/system";
-import { lightenHexColor } from "../../libs/utilFunctions"
 import { useState } from "react";
 import "/node_modules/flag-icons/css/flag-icons.min.css";
 import i18next from "i18next";
