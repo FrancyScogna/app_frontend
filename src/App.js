@@ -39,7 +39,7 @@ function App() {
             <Route path="/forgotPassword" element={<ForgotPasswordForm />} />
           </Route>
 
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/user/:nickname" element={<Profile />} />
 
         </Routes>
 

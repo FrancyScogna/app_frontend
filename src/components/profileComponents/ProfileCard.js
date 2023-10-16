@@ -17,7 +17,7 @@ function ProfileCard(){
     const fetchData = async() => {
         try {
             setTimeout(async() => {
-                const userData = await getUserAmplify();
+                const userData = await getUserAmplify("frasco.97");
                 setUser(userData);
                 setLoadingCard(false);
             },3000);

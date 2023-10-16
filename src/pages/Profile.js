@@ -12,8 +12,12 @@ import { useEffect, useState } from "react";
 import { getRelationshipCheck, getSubCheck, getUserAmplify } from "../libs/backendSimulation";
 import LoadingPage from "../components/appComponents/LoadingPage";
 import SubsBox from "../components/profileComponents/SubsBox";
+import PostsTab from "../components/profileComponents/PostsTab";
+import { useParams } from "react-router-dom";
 
 function Profile (){
+
+    const {nickname} = useParams();
 
     const theme = useTheme();
     const bordersColor = lightenHexColor(theme.palette.primary.dark, 120);
@@ -31,7 +35,7 @@ function Profile (){
 
                 //Ricezione dati dal backend dell'utente, null se sei bloccato o l'utente non esiste
                 //oggetto user se l'utente esiste e non ti ha bloccato
-                const userData = await getUserAmplify();
+                const userData = await getUserAmplify(nickname);
                 //Simulazione di un ritardo nella ricezione dati di 3s con setTimeout per mostrare il caricamento.
                 setTimeout(() => {if(userData !== null){
                     setUser(userData)
@@ -54,7 +58,7 @@ function Profile (){
             }
         };
         fetchData();
-    },[]);
+    },[nickname]);
 
     //Ricevuti i dati dal backend imposta se l'utente ha accesso ai dati.
     useEffect(() => {
@@ -114,6 +118,7 @@ function Profile (){
                     <CountersBox counters={user.counters}/>
                     <DescriptionBox text={user.description}/>
                     <SubsBox user={user}/>
+                    <PostsTab user={user}/>
                 </div>
             </div>
             <div className="profile-right-container">

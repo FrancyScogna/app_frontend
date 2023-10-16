@@ -2,14 +2,14 @@ const {faker} = require("@faker-js/faker");
 
 //Funzione che restituisce null se l'utente che stiamo cercando è bloccato,
 //restituisce l'utente se l'utente non è bloccato.
-async function getUserAmplify(){
+async function getUserAmplify(nickname){
     const blocked = false;
     var user = null;
     if(!blocked){
         user = {
             privacy: "public",
-            username: "User Name",
-            nickname: "nickname",
+            username: "Francesco Scognamiglio",
+            nickname: "frasco.97",
             description: faker.lorem.paragraphs(10),
             counters: {
                 vidsCount: 143,
@@ -20,7 +20,7 @@ async function getUserAmplify(){
             }
         }
     }
-    return !blocked ? user : null;
+    return !blocked ? user.nickname === nickname ? user : null : null;
 }
 
 //Funzione che restituisce se io seguo l'utente e viceversa e restituisce i due parametri.
@@ -87,11 +87,27 @@ async function getUserSubs(){
     return subsList 
 }
 
+const posts = [];
+
+for (let i = 0; i < 75; i++) {
+  const post = {
+    key: i
+  };
+  posts.push(post);
+}
+
+async function getUserPost(index, nPosts){
+    var postsSliced;
+    postsSliced = posts.slice(index, index+nPosts);
+    return postsSliced;
+}
+
 module.exports = {
     getUserAmplify,
     getRelationshipCheck,
     getSubCheck,
     getFollowerList,
     users,
-    getUserSubs
+    getUserSubs,
+    getUserPost
 }

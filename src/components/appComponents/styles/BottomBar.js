@@ -4,7 +4,8 @@ export const customStyles = (theme, downDesktop) => {
             position: "fixed",
             bottom: 0,
             width: "100%",
-            display: !downDesktop && "none"
+            display: !downDesktop && "none",
+            zIndex: "10"
         }
     }
 }
