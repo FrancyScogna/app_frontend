@@ -41,6 +41,13 @@ export const customStyles = (theme) => {
         },
         unsubscribepopup_button_unsubbutton: {
             fontWeight: "bold"
+        },
+        unsubscribepopup_loading_div: {
+            display: "flex", 
+            flex: 1, 
+            justifyContent: "center", 
+            alignContent: "center", 
+            margin: "20px"
         }
     }
 }

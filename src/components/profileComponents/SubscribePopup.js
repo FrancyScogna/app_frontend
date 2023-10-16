@@ -1,30 +1,33 @@
 import { Close } from "@mui/icons-material";
-import { Button, Dialog, Divider, Grid, IconButton, Typography, useTheme } from "@mui/material";
+import { Button, CircularProgress, Dialog, Divider, Grid, IconButton, Typography, useTheme } from "@mui/material";
 import { customStyles } from "./styles/SubscribePopup";
+import { getUserSubs } from "../../libs/backendSimulation";
+import { useEffect, useState } from "react";
+import { LoadingButton } from "@mui/lab";
 
 function SubscribePopup ({username, nickname, type, open, setOpen}){
 
     const theme = useTheme();
     const styles = customStyles(theme);
 
+    const [subsList, setSubsList] = useState(null);
+    const [loadingSubs, setLoadingSubs] = useState(true);
+
     //simulazione di una lista di abbonamenti che verrà ricevuta da un'apposita funzione in backend
-    var subsList = [
-        {
-            key: 1,
-            price: 10,
-            days: 30
-        },
-        {
-            key: 2,
-            price: 18,
-            days: 60
-        },
-        {
-            key: 3,
-            price: 25,
-            days: 90
+    async function fetchData(){
+        try{
+            setTimeout(async() => {const subsListData = await getUserSubs();
+            setSubsList(subsListData);
+            setLoadingSubs(false);
+            },2000)
+        }catch(error){
+            console.log(error);
         }
-    ]
+    }
+
+    useEffect(() => {
+        fetchData();
+    },[]);
 
     return(
     <div>
@@ -56,16 +59,23 @@ function SubscribePopup ({username, nickname, type, open, setOpen}){
                             potrai procedere al pagamento.
                         </Typography>
                     </Grid>
-                    {subsList.map((item) => (
+                    {!loadingSubs ? 
+                    subsList.map((item) => (
                         <Grid key={item.key} item xs={12} style={styles.subscribepopup_grid_item_button}>
-                            <Button 
+                            <Button
                             fullWidth 
                             variant="contained"
                             style={styles.subscribepopup_subscribe_button}>
                                 Abbonati {item.days} giorni a {item.price}€
                             </Button>
                         </Grid>
-                    ))}
+                    ))
+                    :
+                    (
+                        <div style={styles.subscribepopup_loading_div}>
+                            <CircularProgress /> 
+                        </div>
+                    )}
                 </Grid>
             </div>
         </Dialog>

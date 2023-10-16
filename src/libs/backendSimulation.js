@@ -61,10 +61,30 @@ for (let i = 0; i < 70; i++) {
 }
 
 async function getFollowerList(index, nUsers){
-    var i;
     var usersSliced;
     usersSliced = users.slice(index, index+nUsers);
     return usersSliced;
+}
+
+async function getUserSubs(){
+    var subsList = [
+        {
+            key: 1,
+            price: 10,
+            days: 30
+        },
+        {
+            key: 2,
+            price: 18,
+            days: 60
+        },
+        {
+            key: 3,
+            price: 25,
+            days: 90
+        }
+    ];
+    return subsList 
 }
 
 module.exports = {
@@ -72,5 +92,6 @@ module.exports = {
     getRelationshipCheck,
     getSubCheck,
     getFollowerList,
-    users
+    users,
+    getUserSubs
 }

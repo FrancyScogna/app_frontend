@@ -11,6 +11,7 @@ import FollowCounterBox from "../components/profileComponents/FollowCounterBox";
 import { useEffect, useState } from "react";
 import { getRelationshipCheck, getSubCheck, getUserAmplify } from "../libs/backendSimulation";
 import LoadingPage from "../components/appComponents/LoadingPage";
+import SubsBox from "../components/profileComponents/SubsBox";
 
 function Profile (){
 
@@ -111,7 +112,8 @@ function Profile (){
                 </div>
                 <div className="profile-center-bottom-container">
                     <CountersBox counters={user.counters}/>
-                    <DescriptionBox text={user.description} />
+                    <DescriptionBox text={user.description}/>
+                    <SubsBox user={user}/>
                 </div>
             </div>
             <div className="profile-right-container">

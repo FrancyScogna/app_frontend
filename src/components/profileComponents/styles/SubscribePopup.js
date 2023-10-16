@@ -24,6 +24,13 @@ export const customStyles = (theme) => {
         },
         subscribepopup_subscribe_button: {
             fontWeight: "bold"
+        },
+        subscribepopup_loading_div: {
+            display: "flex", 
+            flex: 1, 
+            justifyContent: "center", 
+            alignContent: "center", 
+            margin: "20px"
         }
     }
 }
