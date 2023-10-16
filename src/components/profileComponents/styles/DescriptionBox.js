@@ -4,8 +4,12 @@ export const customStyles = (theme) => {
             marginTop: "20px",
             marginInline: "5px"
         },
-        descriptionbox_text: {
+        descriptionbox_long_text: {
             whiteSpace: "pre-wrap"
+        },
+        descriptionbox_short_text: {
+            whiteSpace: "pre-wrap",
+            marginBottom: "10px"
         },
         descriptionbox_button_hide: {
             fontSize: "10px"

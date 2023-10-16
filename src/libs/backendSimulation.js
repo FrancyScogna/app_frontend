@@ -10,7 +10,7 @@ async function getUserAmplify(nickname){
             privacy: "public",
             username: "Francesco Scognamiglio",
             nickname: "frasco.97",
-            description: faker.lorem.paragraphs(10),
+            description: faker.lorem.paragraphs(5),
             counters: {
                 vidsCount: 143,
                 picsCount: 10999,
