@@ -1,7 +1,6 @@
 export const customStyles = (theme, downIpad) => {
     return{
-        foother_main_div: {
-            position: "relative",
+        footer_main_div: {
             display: "flex",
             flex: 1,
             paddingTop: downIpad ? "10px" : "20px",
@@ -13,43 +12,43 @@ export const customStyles = (theme, downIpad) => {
             backgroundColor: theme.palette.primary.main,
             borderTop: `1px solid ${theme.palette.primary.dark}`
         },
-        foother_top_div: {
+        footer_top_div: {
             display: "flex",
             flexDirection: downIpad ? "column":"row"
         },
-        foother_left_div: {
+        footer_left_div: {
             display: "flex",
             flex: 1,
             marginLeft: "20px",
             marginBottom: downIpad && "20px"
         },
-        foother_link_text: {
+        footer_link_text: {
             color: theme.palette.primary.light,
             fontWeight: "bold"
         },
-        foother_right_div: {
+        footer_right_div: {
             display: "flex",
             flex: 1,
             marginRight: "20px"
         },
-        foother_right_div_grid_item_title: {
+        footer_right_div_grid_item_title: {
             marginBottom: "-8px"
         },
-        foother_right_div_title_text: {
+        footer_right_div_title_text: {
             fontSize: "15px",
             color: theme.palette.primary.light
         },
-        foother_right_div_socialicons: {
+        footer_right_div_socialicons: {
             color: theme.palette.primary.light,
             fontSize: "35px"
         },
-        foother_bottom_div: {
+        footer_bottom_div: {
             display: "flex",
             marginTop: "10px",
             marginLeft: "20px",
             marginRight: "20px"
         },
-        foother_bottom_div_text: {
+        footer_bottom_div_text: {
             color: "#c9a0dc"
         }
     }

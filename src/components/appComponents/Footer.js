@@ -1,9 +1,9 @@
 import { ButtonBase, Grid, IconButton, Typography, useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { Facebook, Twitter, Instagram } from "@mui/icons-material";
-import { customStyles } from "./styles/Foother";
+import { customStyles } from "./styles/Footer";
 
-function Foother(){
+function Footer(){
 
     const theme = useTheme();
     const downIpad = useMediaQuery(theme.breakpoints.down("ipad"));
@@ -23,15 +23,15 @@ function Foother(){
 
     //Link dei social da settare
     const socials = [
-        {key: "facebook", path: "/", icon: (<Facebook style={styles.foother_right_div_socialicons}/>)},
-        {key: "twitter", path: "/", icon: (<Twitter style={styles.foother_right_div_socialicons}/>)},
-        {key: "instagram", path: "/", icon: (<Instagram style={styles.foother_right_div_socialicons}/>)}
+        {key: "facebook", path: "/", icon: (<Facebook style={styles.footer_right_div_socialicons}/>)},
+        {key: "twitter", path: "/", icon: (<Twitter style={styles.footer_right_div_socialicons}/>)},
+        {key: "instagram", path: "/", icon: (<Instagram style={styles.footer_right_div_socialicons}/>)}
     ]
 
     return(
-        <div style={styles.foother_main_div}>
-            <div style={styles.foother_top_div}>
-                <div style={styles.foother_left_div}>
+        <div style={styles.footer_main_div}>
+            <div style={styles.footer_top_div}>
+                <div style={styles.footer_left_div}>
                     <Grid container rowSpacing={1} columnSpacing={3}>
                         {links.map((link) => (
                             <Grid key={link.key} item>
@@ -39,7 +39,7 @@ function Foother(){
                             onClick={() => window.location.href = link.path}
                             >
                                 <Typography
-                                style={styles.foother_link_text}
+                                style={styles.footer_link_text}
                                 >
                                     {link.name}
                                 </Typography>
@@ -48,12 +48,12 @@ function Foother(){
                         ))}
                     </Grid>
                 </div>
-                <div style={styles.foother_right_div}>
+                <div style={styles.footer_right_div}>
                     <Grid container rowSpacing={1} columnSpacing={6} >
-                        <Grid item xs={12} style={styles.foother_right_div_grid_item_title}>
+                        <Grid item xs={12} style={styles.footer_right_div_grid_item_title}>
                             <Typography
                             variant="button"
-                            style={styles.foother_right_div_title_text}
+                            style={styles.footer_right_div_title_text}
                             >
                                 social:
                             </Typography>
@@ -70,10 +70,10 @@ function Foother(){
                     </Grid>
                 </div>
             </div>
-            <div style={styles.foother_bottom_div}>
+            <div style={styles.footer_bottom_div}>
                 <Typography
                 variant="subtitle1"
-                style={styles.foother_bottom_div_text}
+                style={styles.footer_bottom_div_text}
                 >
                     2023 © ptok.com. All rights reserved.
                 </Typography>
@@ -82,4 +82,4 @@ function Foother(){
     )
 }
 
-export default Foother;
+export default Footer;

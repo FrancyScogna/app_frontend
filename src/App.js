@@ -9,10 +9,10 @@ import ConfirmForm from "./components/authComponents/ConfirmForm";
 import ForgotPasswordCodeForm from "./components/authComponents/ForgotPasswordCodeForm";
 import ForgotPasswordForm from "./components/authComponents/ForgotPasswordForm";
 import { lightTheme, darkTheme } from "./libs/theme";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BottomBar from "./components/appComponents/BottomBar";
 import Profile from "./pages/Profile";
-import Foother from "./components/appComponents/Foother";
+import Footer from "./components/appComponents/Footer";
 import TopBar from "./components/appComponents/TopBar";
 
 function App() {
@@ -24,32 +24,36 @@ function App() {
 
   return (
       <ThemeProvider theme={themeMode}>
-      <CssBaseline />
+        <CssBaseline />
 
-        <div className="topbar-container">
-          <TopBar setThemeMode={setThemeMode}/>
+        <div style={{display: "flex", flexDirection: "column"}}>
+
+          <div id="topbar" style={{height: "60px", display: "flex", flexDirection: "row", justifyContent: "space-around", alignItems: "center"}}>
+            <TopBar setThemeMode={setThemeMode}/>
+          </div>
+
+          <div id="page" style={{position: "relative", display: "block", width: "100%", paddingBottom: "80px"}}>
+            <Routes>
+              <Route path="/" element={<Authentication />}>
+                <Route path="/" element={<LoginForm/>} />
+                <Route path="/signup" element={<SignupForm/>} />
+                <Route path="/confirmAccount" element={<ConfirmForm/>} />
+                <Route path="/forgotPasswordCode" element={<ForgotPasswordCodeForm />} />
+                <Route path="/forgotPassword" element={<ForgotPasswordForm />} />
+              </Route>
+
+              <Route path="/user/:nickname" element={<Profile />} />
+
+            </Routes>
+          </div>
+
+          <div id="footer" style={{display: "flex"}}>
+            <Footer />
+          </div>
+
+          <BottomBar />
+
         </div>
-
-        <Routes>
-          <Route path="/" element={<Authentication />}>
-            <Route path="/" element={<LoginForm/>} />
-            <Route path="/signup" element={<SignupForm/>} />
-            <Route path="/confirmAccount" element={<ConfirmForm/>} />
-            <Route path="/forgotPasswordCode" element={<ForgotPasswordCodeForm />} />
-            <Route path="/forgotPassword" element={<ForgotPasswordForm />} />
-          </Route>
-
-          <Route path="/user/:nickname" element={<Profile />} />
-
-        </Routes>
-
-        <div className="foother-container">
-          <Foother />
-        </div>
-
-
-        <BottomBar />
-
       </ThemeProvider>
   );
 }

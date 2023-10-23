@@ -36,7 +36,7 @@ function PostsTab({user}) {
 
     const [postsList, setPostsList] = useState([]);
     const [index, setIndex] = useState(0);
-    const pagination = 10;
+    const pagination = 20;
 
     async function fetchData(){
         console.log("fetch")

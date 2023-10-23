@@ -96,14 +96,14 @@ function Profile (){
             <div className="profile-left-container">
                 <h1>Left</h1>
             </div>
-            <div className="profile-center-container" style={{borderInline: `solid 2px ${bordersColor}`}}>
+            <div className="profile-center-container" style={{borderInline: `solid 2px ${lightenHexColor(theme.palette.primary.dark, 120)}`}}>
                 <div className="profile-center-top-container">
-                    <div className="profile-cover-container" style={{borderBottom: `solid 5px ${bordersColor}`,borderBottomLeftRadius: "10px",borderBottomRightRadius: "10px", overflow: "hidden"}}>
+                    <div className="profile-cover-container" style={{borderBottom: `solid 5px ${lightenHexColor(theme.palette.primary.dark, 120)}`,borderBottomLeftRadius: "10px",borderBottomRightRadius: "10px", overflow: "hidden"}}>
                         <img alt="cover" src={coverImage} />
                     </div>
                     <div className="profile-avatar-buttons-container">
                         <div className="profile-avatar-container">
-                            <Avatar style={{width: "100%", height: "100%", border: `solid 3px ${bordersColor}`}} src={avatarImage}/>
+                            <Avatar style={{width: "100%", height: "100%", border: `solid 3px ${lightenHexColor(theme.palette.primary.dark, 120)}`}} src={avatarImage}/>
                         </div>
                         <div className="profile-tools-container">
                             <div className="profile-tools-top-container">
