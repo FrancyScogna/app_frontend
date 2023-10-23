@@ -9,74 +9,64 @@ import CountersBox from "../components/profileComponents/CountersBox";
 import AnagraphicBox from "../components/profileComponents/AnagraphicBox";
 import FollowCounterBox from "../components/profileComponents/FollowCounterBox";
 import { useEffect, useState } from "react";
-import { getRelationshipCheck, getSubCheck, getUserAmplify } from "../libs/backendSimulation";
+import { getRelationshipCheck, getSubCheck, getUserAmplify, getUserProfile } from "../libs/backendSimulation";
 import LoadingPage from "../components/appComponents/LoadingPage";
 import SubsBox from "../components/profileComponents/SubsBox";
 import PostsTab from "../components/profileComponents/PostsTab";
 import { useParams } from "react-router-dom";
 
-function Profile (){
+function Profile ({authUser}){
 
     const {nickname} = useParams();
 
     const theme = useTheme();
-    const bordersColor = lightenHexColor(theme.palette.primary.dark, 120);
     const [loadingProfile, setLoadingProfile] = useState(true);
-    const [user, setUser] = useState(null);
+    const [isGuestProfile, setIsGuestProfile] = useState(false);
     const [followingCheck, setFollowingCheck] = useState(false);
-    const [followerCheck, setFollowerCheck] = useState(false);
-    const [privacyBypass, setPrivacyBypass] = useState(false);
-    const [subCheck, setSubCheck] = useState(false);
+    const [followCheck, setFollowCheck] = useState(false);
+    const [subscribedCheck, setSubscribedCheck] = useState(false);
     const [blocked, setBlocked] = useState(false);
-
+    const [user, setUser] = useState(null);
+    
     useEffect(() => {
-        const fetchData = async () => {
-            try{
+        if(nickname === authUser.nickname){
+            setIsGuestProfile(false);
+        }else{
+            setIsGuestProfile(true);
+        }
+    },[nickname, authUser]);
 
-                //Ricezione dati dal backend dell'utente, null se sei bloccato o l'utente non esiste
-                //oggetto user se l'utente esiste e non ti ha bloccato
-                const userData = await getUserAmplify(nickname);
-                //Simulazione di un ritardo nella ricezione dati di 3s con setTimeout per mostrare il caricamento.
-                setTimeout(() => {if(userData !== null){
-                    setUser(userData)
-                    setBlocked(false);
-                }else{
-                    setBlocked(true);
-                }},0);
-
-                //Ricezione dei dati dalla relationship table
-                const {checkFollowing, checkFollower} = await getRelationshipCheck();
-                setFollowingCheck(checkFollowing);
-                setFollowerCheck(checkFollower);
-
-                //Ricezione dei dati dalla subscription table
-                const subData = await getSubCheck();
-                setSubCheck(subData);
-
-            }catch(error){
-                console.error('Errore nella richiesta al backend:', error);
-            }
-        };
-        fetchData();
-    },[nickname]);
-
-    //Ricevuti i dati dal backend imposta se l'utente ha accesso ai dati.
-    useEffect(() => {
-        if(user){
-            setLoadingProfile(false);
-            if(user.privacy === 'public'){
-                setPrivacyBypass(true);
+    async function getGuestProfile(){
+        try{
+            const userData = await getUserProfile(nickname);
+            if(userData.blocked){
+                setBlocked(true);
+                setUser(null);
+                setFollowCheck(false);
+                setFollowingCheck(false);
+                setSubscribedCheck(false);
+                setLoadingProfile(false);
             }else{
-                if(user.privacy === 'private' && followingCheck){
-                    setPrivacyBypass(true);
-                }else{
-                    setPrivacyBypass(false);
-                }   
+                setBlocked(false);
+                setUser(userData.user);
+                setFollowCheck(userData.follow);
+                setFollowingCheck(userData.following);
+                setSubscribedCheck(userData.subscribed);
+                setLoadingProfile(false);
             }
-        }else if(blocked){
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    useEffect(() => {
+        if(isGuestProfile){
+            getGuestProfile();
+        }else{
+            setUser(authUser);
             setLoadingProfile(false);
         }
-    },[user, followingCheck, blocked]);
+    },[isGuestProfile])
 
     //In attesa che vengano ricevuti i dati dell'utente dal backend.
     if(loadingProfile){
@@ -110,7 +100,7 @@ function Profile (){
                                 <AnagraphicBox username={user.username} nickname={user.nickname}/>
                                 <FollowCounterBox counters={user.counters}/>
                             </div>
-                            <ButtonsGrid username={user.username} nickname={user.nickname} followingCheck={followingCheck} subCheck={subCheck}/>
+                            <ButtonsGrid username={user.username} nickname={user.nickname} follow={followCheck} subscribed={subscribedCheck}/>
                         </div>
                     </div>
                 </div>

@@ -5,9 +5,11 @@ import "./styles/LoadingPage.css";
 function LoadingPage({loading}){
 
     return(
-        <Backdrop open={true}>
-            <img alt="loading" src={Logo} className="pulsating-image"/>
-        </Backdrop>
+        <div style={{height: "100vh"}}>
+            <Backdrop open={true}>
+                <img alt="loading" src={Logo} className="pulsating-image"/>
+            </Backdrop>
+        </div>
     )
 }
 

@@ -1,11 +1,11 @@
 import { Button, Grid, IconButton, ListItemIcon, Menu, MenuItem, MenuList, Typography, useTheme } from "@mui/material";
 import { Flag, MoreVert, Share } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SubscribePopup from "./SubscribePopup";
 import UnsubscribePopup from "./UnsubscribePopup";
 import { customStyles } from "./styles/ButtonsGrid";
 
-function ButtonsGrid({username, nickname, followingCheck, subCheck}){
+function ButtonsGrid({username, nickname, follow, subscribed}){
 
     const theme = useTheme();
     const styles = customStyles(theme);
@@ -25,7 +25,7 @@ function ButtonsGrid({username, nickname, followingCheck, subCheck}){
         handleClose();
     }
 
-    const [followCheck, setFollowCheck] = useState(followingCheck);
+    const [followCheck, setFollowCheck] = useState(false);
     const onClickFollowButton = () => {
         //meccanismo da backend per l'aggiunta o rimozione del follower
         if(followCheck){
@@ -39,7 +39,12 @@ function ButtonsGrid({username, nickname, followingCheck, subCheck}){
         }
     }
 
-    const [subscribeCheck, setSubscribeCheck] = useState(subCheck !== null);
+    useEffect(() => {
+        setFollowCheck(follow);
+        setSubscribeCheck(subscribed);
+    },[follow, subscribed])
+
+    const [subscribeCheck, setSubscribeCheck] = useState(false);
     const [showSubscribePopup, setShowSubscribePopup] = useState(false);
     const [showUnsubscribePopup, setShowUnsubscribePopup] = useState(false);
     const onClickSubscribe = () => {

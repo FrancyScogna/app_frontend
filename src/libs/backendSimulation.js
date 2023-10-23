@@ -1,16 +1,16 @@
 const {faker} = require("@faker-js/faker");
 
-//Funzione che restituisce null se l'utente che stiamo cercando è bloccato,
-//restituisce l'utente se l'utente non è bloccato.
-async function getUserAmplify(nickname){
-    const blocked = false;
+
+async function getAuthenticatedUser(){
+    const auth = true; //true
     var user = null;
-    if(!blocked){
+    if(auth){
         user = {
             privacy: "public",
-            username: "Francesco Scognamiglio",
-            nickname: "frasco.97",
-            description: faker.lorem.paragraphs(5),
+            username: "FrancescoS.",
+            nickname: "scogna.97",
+            description: "my description",
+            type: "creator",
             counters: {
                 vidsCount: 143,
                 picsCount: 10999,
@@ -20,7 +20,57 @@ async function getUserAmplify(nickname){
             }
         }
     }
-    return !blocked ? user.nickname === nickname ? user : null : null;
+    return user;
+}
+
+//Funzione che restituisce null se l'utente che stiamo cercando è bloccato,
+//restituisce l'utente se l'utente non è bloccato.
+async function getUserProfile(nickname){
+    //Se l'utente mi ha bloccato
+    const blocked = false;
+    //Se seguo l'utente
+    const follow = false;
+    //Se l'utente mi segue
+    const following = true;
+    //Tipo di utente
+    const type = "creator";
+    const subscribed = false;
+
+    var user = null;
+    if(blocked){
+        return {
+            user,
+            blocked,
+            follow: false,
+            following: false
+        }
+    }else{
+        const result = {
+            user: {
+                privacy: "public",
+                username: "Francesco Scognamiglio",
+                nickname: "frasco.97",
+                description: faker.lorem.paragraphs(5),
+                type,
+                counters: {
+                    vidsCount: 143,
+                    picsCount: 10999,
+                    clipsCount: 23,
+                    followersCount: 400,
+                    followingCount: 150
+                }
+            },
+            blocked,
+            follow,
+            following
+        }
+        if(type === "creator"){
+            result.subscribed = subscribed;
+        }else{
+            result.subscribed = false;
+        }
+        return result;
+    }
 }
 
 //Funzione che restituisce se io seguo l'utente e viceversa e restituisce i due parametri.
@@ -103,11 +153,12 @@ async function getUserPost(index, nPosts){
 }
 
 module.exports = {
-    getUserAmplify,
+    getUserProfile,
     getRelationshipCheck,
     getSubCheck,
     getFollowerList,
     users,
     getUserSubs,
-    getUserPost
+    getUserPost,
+    getAuthenticatedUser
 }

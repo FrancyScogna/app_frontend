@@ -39,7 +39,6 @@ function PostsTab({user}) {
     const pagination = 20;
 
     async function fetchData(){
-        console.log("fetch")
         setTimeout(async() => {
             const postsData = await getUserPost(index, pagination);
             setIndex(index+pagination)

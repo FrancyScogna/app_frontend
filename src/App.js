@@ -14,6 +14,8 @@ import BottomBar from "./components/appComponents/BottomBar";
 import Profile from "./pages/Profile";
 import Footer from "./components/appComponents/Footer";
 import TopBar from "./components/appComponents/TopBar";
+import { getAuthenticatedUser } from "./libs/backendSimulation";
+import LoadingPage from "./components/appComponents/LoadingPage";
 
 function App() {
 
@@ -21,6 +23,25 @@ function App() {
   var themeSelected = false;
   storedThemeMode ? themeSelected = true : themeSelected = false;
   const [themeMode, setThemeMode] = useState(themeSelected ? (storedThemeMode === "light" ? lightTheme : darkTheme) : lightTheme);
+
+  const [user, setUser] = useState(null);
+  const [authenticated, setAuthenticated] = useState(false);
+  const [loadingApp, setLoadingApp] = useState(true);
+
+  async function getAuth(){
+    setTimeout(async() => {
+      const userData = await getAuthenticatedUser();
+      if(userData){
+        setUser(userData);
+        setAuthenticated(true);
+      }
+      setLoadingApp(false);
+    }, 500)
+  }
+
+  useEffect(() => {
+    getAuth();
+  },[])
 
   return (
       <ThemeProvider theme={themeMode}>
@@ -33,7 +54,9 @@ function App() {
           </div>
 
           <div id="page" style={{position: "relative", display: "block", width: "100%", paddingBottom: "80px"}}>
+          {!loadingApp ?
             <Routes>
+              {!authenticated && 
               <Route path="/" element={<Authentication />}>
                 <Route path="/" element={<LoginForm/>} />
                 <Route path="/signup" element={<SignupForm/>} />
@@ -41,10 +64,13 @@ function App() {
                 <Route path="/forgotPasswordCode" element={<ForgotPasswordCodeForm />} />
                 <Route path="/forgotPassword" element={<ForgotPasswordForm />} />
               </Route>
-
-              <Route path="/user/:nickname" element={<Profile />} />
+              }
+              <Route path="/user/:nickname" element={<Profile authUser={user}/>} />
 
             </Routes>
+          :
+            <LoadingPage />
+          }
           </div>
 
           <div id="footer" style={{display: "flex"}}>

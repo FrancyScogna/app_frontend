@@ -4,7 +4,9 @@ export const customStyles = (theme) => {
             margin: "10px"
         },
         poststab_tab_text: {
-            fontWeight: "bold"
+            fontWeight: "bold",
+            borderTopLeftRadius: "20px",
+            borderTopRightRadius: "20px"
         },
         poststab_swiper_main: {
             marginTop: "10px"
