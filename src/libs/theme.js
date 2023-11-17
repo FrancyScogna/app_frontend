@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import { lightenHexColor } from './utilFunctions';
 
 const breakpointsValues = {
   values: {
@@ -66,7 +67,8 @@ export const lightTheme = createTheme({
       MuiDivider: {
         styleOverrides: {
           root: {
-            borderColor: "#8f00ff"
+            borderColor: lightenHexColor("#6902ba", 30),
+            borderWidth: "0 0 0 1px"
           }
         }
       }

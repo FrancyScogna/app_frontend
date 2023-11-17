@@ -13,11 +13,9 @@ function SubsBox({user}){
 
     async function fetchData(){
         try{
-            setTimeout(async() => {
-                const subsListData = await getUserSubs();
-                setSubsList(subsListData);
-                setLoadingList(false);
-            }, 2000)
+            const subsListData = await getUserSubs();
+            setSubsList(subsListData);
+            setLoadingList(false);
         }catch(error){
             console.log(error);
         }

@@ -2,3 +2,22 @@ body {
     margin: 0px;
     height: 100vh;
 }
+
+::-webkit-scrollbar {
+    width: 7px;
+}
+  
+::-webkit-scrollbar-track {
+    background: #c9a0dc;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #8f00ff;
+    border-radius: 30px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a026ff;
+}

@@ -39,16 +39,14 @@ function PostsTab({user}) {
     const pagination = 20;
 
     async function fetchData(){
-        setTimeout(async() => {
-            const postsData = await getUserPost(index, pagination);
-            setIndex(index+pagination)
-            setPostsList((prevItems) => [...prevItems, ...postsData]);
-            if(postsData.length === 0){
-                setDisableViewPort(true);
-            }else{
-                setDisableViewPort(false);
-            }
-        },3000)
+        const postsData = await getUserPost(index, pagination);
+        setIndex(index+pagination)
+        setPostsList((prevItems) => [...prevItems, ...postsData]);
+        if(postsData.length === 0){
+            setDisableViewPort(true);
+        }else{
+            setDisableViewPort(false);
+        }
     }
 
     useEffect(() => {

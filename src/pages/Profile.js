@@ -16,68 +16,60 @@ import PostsTab from "../components/profileComponents/PostsTab";
 import { useParams } from "react-router-dom";
 
 function Profile ({authUser}){
-
     const {nickname} = useParams();
 
     const theme = useTheme();
     const [loadingProfile, setLoadingProfile] = useState(true);
     const [isGuestProfile, setIsGuestProfile] = useState(false);
+    const [blocked, setBlocked] = useState(false);
+    const [user, setUser] = useState(null);
+    const [userNotFound, setUserNotFound] = useState(false);
     const [followingCheck, setFollowingCheck] = useState(false);
     const [followCheck, setFollowCheck] = useState(false);
     const [subscribedCheck, setSubscribedCheck] = useState(false);
-    const [blocked, setBlocked] = useState(false);
-    const [user, setUser] = useState(null);
-    
+
     useEffect(() => {
         if(nickname === authUser.nickname){
-            setIsGuestProfile(false);
-        }else{
-            setIsGuestProfile(true);
-        }
-    },[nickname, authUser]);
-
-    async function getGuestProfile(){
-        try{
-            const userData = await getUserProfile(nickname);
-            if(userData.blocked){
-                setBlocked(true);
-                setUser(null);
-                setFollowCheck(false);
-                setFollowingCheck(false);
-                setSubscribedCheck(false);
-                setLoadingProfile(false);
-            }else{
-                setBlocked(false);
-                setUser(userData.user);
-                setFollowCheck(userData.follow);
-                setFollowingCheck(userData.following);
-                setSubscribedCheck(userData.subscribed);
-                setLoadingProfile(false);
-            }
-        }catch(error){
-            console.log(error);
-        }
-    }
-
-    useEffect(() => {
-        if(isGuestProfile){
-            getGuestProfile();
-        }else{
             setUser(authUser);
+            setIsGuestProfile(false);
             setLoadingProfile(false);
+        } else {
+            setIsGuestProfile(true);
+            async function getGuestProfile(){
+                try {
+                    const userData = await getUserProfile(nickname);
+                    if(userData.blocked || !userData.user){
+                        setBlocked(true);
+                        setUser(null);
+                        setLoadingProfile(false);
+                        setFollowCheck(false);
+                        setFollowingCheck(false);
+                        setSubscribedCheck(false);
+                    } else {
+                        setBlocked(false);
+                        setUser(userData.user);
+                        setLoadingProfile(false);
+                        setFollowCheck(userData.follow);
+                        setFollowingCheck(userData.following);
+                        setSubscribedCheck(userData.subscribed);
+                    }
+                } catch(error){
+                    console.log(error);
+                    setLoadingProfile(false);
+                }
+            }
+            getGuestProfile();
         }
-    },[isGuestProfile])
+    }, [nickname, authUser]);
 
-    //In attesa che vengano ricevuti i dati dell'utente dal backend.
+    // In attesa che vengano ricevuti i dati dell'utente dal backend.
     if(loadingProfile){
-        return(<LoadingPage/>)
-    }else{
-        window.scrollTo({top: 0})
+        return <LoadingPage />;
     }
 
-    //Se ricevuti i dati utente l'utente non viene trovato o sei stato bloccato.
-    if(blocked){
-        return <h1>Utente non trovato</h1>
+    // Se l'utente non viene trovato o sei stato bloccato.
+    if(blocked || userNotFound){
+        return <h1>Utente non trovato</h1>;
     }
 
     return(

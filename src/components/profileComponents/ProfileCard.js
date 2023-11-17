@@ -3,7 +3,7 @@ import coverImage from "../../images/cover-1500x500.png";
 import avatarImage from "../../images/avatar-400x400.png";
 import CountersBox from "./CountersBox";
 import { useEffect, useState } from "react";
-import { getUserAmplify } from "../../libs/backendSimulation";
+import { getUserProfile } from "../../libs/backendSimulation";
 import { customStyles } from "./styles/ProfileCard";
  
 function ProfileCard(){
@@ -17,8 +17,8 @@ function ProfileCard(){
     const fetchData = async() => {
         try {
             setTimeout(async() => {
-                const userData = await getUserAmplify("frasco.97");
-                setUser(userData);
+                const userData = await getUserProfile("feli.mici");
+                setUser(userData.user);
                 setLoadingCard(false);
             },3000);
         }catch(error){

@@ -6,8 +6,7 @@ export const customStyles = (theme, isDesktopDown) => {
             display: "flex",
             flexDirection: "row",
             justifyContent: "center",
-            height: "65px",
-            paddingInline: "3%"
+            height: "65px"
         },
         topbar_toolbar_div: {
             display: "flex",

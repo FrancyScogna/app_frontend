@@ -20,21 +20,16 @@ function FollowListPopup({ show, open, setOpen, counters }) {
     const [mousePosition, setMousePosition] = useState({top: 0, left: 0});
     const pagination = 20;
 
-    useEffect(() => {
-        fetchData();
-    }, []);
-
     const fetchData = async () => {
-        setDisableViewPort(true);
-        setTimeout(async() => {
-            const newData = await getFollowerList(index, pagination);
-            setIndex(index+pagination);
-            setItems((prevItems) => [...prevItems, ...newData]);
-            if(newData.length === 0){
-                setDisableViewPort(true);
-            }
-        },3000)
-        setDisableViewPort(false);
+        const newData = await getFollowerList(index, pagination);
+        setIndex(prevIndex => prevIndex + pagination);
+        setItems(prevItems => [...prevItems, ...newData]);
+        console.log(newData.length);
+        if (newData.length === 0) {
+            setDisableViewPort(true);
+        } else {
+            setTimeout(() => setDisableViewPort(false),500)
+        }
     };
 
     const [disableViewport, setDisableViewPort] = useState(false)

@@ -1,4 +1,4 @@
-import { Button, IconButton, AppBar, InputBase, Grid, useMediaQuery } from "@mui/material";
+import { Button, IconButton, AppBar, InputBase, Grid, useMediaQuery, Skeleton, Avatar, Badge } from "@mui/material";
 import Divider from '@mui/material/Divider';
 import SearchIcon from '@mui/icons-material/Search';
 import Logo from "../../images/logo.png"
@@ -10,9 +10,11 @@ import LanguageButton from "../topbarComponents/LanguageButton";
 import ThemeButton from "../topbarComponents/ThemeButton";
 import TopBarRightMenu from "../topbarComponents/TopBarRightMenu";
 import { customStyles } from "./styles/TopBar";
+import { useEffect, useMemo, useState } from "react";
+import { Message, Notifications } from "@mui/icons-material";
+import NotificationsButton from "../topbarComponents/NotificationsButton";
 
-
-function TopBar({setThemeMode}){
+function TopBar({setThemeMode, authUser, loading}){
 
     const StyledInputBase = styled(InputBase)(({ theme }) => ({
         color: lightenHexColor(theme.palette.primary.light, 40), 
@@ -30,18 +32,46 @@ function TopBar({setThemeMode}){
         },
     }));
 
+    const StyledBadge = styled(Badge)(({ theme }) => ({
+        '& .MuiBadge-badge': {
+          right: -3,
+          top: 20,
+          color: lightenHexColor(theme.palette.primary.light, 40),
+          backgroundColor: theme.palette.primary.dark
+        },
+      }));
+
     const theme = useTheme()
     const isDesktopDown = useMediaQuery(theme.breakpoints.down('desktop'));
     const styles = customStyles(theme, isDesktopDown);
 
     const navigate = useNavigate()
 
-    const unauthButtons = [
+    const [authMode, setAuthMode] = useState(false);
+    const [buttons, setButtons] = useState([]);
+
+    const unauthButtons = useMemo(() => [
         {key: "discover", text:"Discover", path: "/discover"},
         {key: "aboutus", text:"About Us", path: "/aboutus"},
         {key: "signin", text:"Log in", path: "/"},
         {key: "signup", text:"Sign up", path: "/signup"}
-    ]
+    ],[]);
+
+    const authButtons = useMemo(() => [
+        {key: "feeds", text: "Feeds", path: "/"},
+        {key: "discover", text:"Discover", path: "/discover"},
+        {key: "aboutus", text:"About Us", path: "/aboutus"}
+    ],[]);
+
+    useEffect(() => {
+        if(authUser){
+            setAuthMode(true);
+            setButtons(authButtons);
+        }else{
+            setAuthMode(false);
+            setButtons(unauthButtons);
+        }
+    },[authUser, authButtons, unauthButtons]);
 
     return(
         <AppBar style={styles.topbar_appbar}>
@@ -68,7 +98,9 @@ function TopBar({setThemeMode}){
                     </div>
                     <div style={styles.topbar_items}>
                         <Grid container columnSpacing={1} style={styles.topbar_items_grid_container_desktop}>
-                            {unauthButtons.map((button) => (
+                            {!loading ?
+                            <>
+                            {buttons.map((button) => (
                                 <Grid key={button.key} item>
                                     <Button 
                                     variant="contained"
@@ -79,6 +111,40 @@ function TopBar({setThemeMode}){
                                     </Button>
                                 </Grid>
                             ))}
+                            {authMode &&
+                            <>
+                            <Grid item>
+                                <Divider
+                                orientation="vertical"/>
+                            </Grid>
+                            <Grid item>
+                                <NotificationsButton />
+                            </Grid>
+                            <Grid item>
+                                <IconButton style={{color: lightenHexColor(theme.palette.primary.light, 40)}}>
+                                    <StyledBadge badgeContent={3} style={{}}>
+                                        <Message />
+                                    </StyledBadge>
+                                </IconButton>
+                            </Grid>
+                            <Grid item>
+                                <Avatar style={{border: `1px solid ${theme.palette.primary.dark}`, marginLeft: "10px"}}/>  
+                            </Grid>
+                            </>
+                            }</>
+                            :
+                            <>
+                            <Grid item >
+                                <Skeleton variant="rounded" height={40} width={100}/>
+                            </Grid>
+                            <Grid item>
+                                <Skeleton variant="rounded" height={40} width={100}/>
+                            </Grid>
+                            <Grid item>
+                                <Skeleton variant="rounded" height={40} width={70}/>
+                            </Grid>
+                            </>
+                            }
                             <Grid item>
                                 <Divider 
                                 orientation="vertical" 

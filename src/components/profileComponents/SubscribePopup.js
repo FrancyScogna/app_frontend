@@ -16,10 +16,9 @@ function SubscribePopup ({username, nickname, type, open, setOpen}){
     //simulazione di una lista di abbonamenti che verrà ricevuta da un'apposita funzione in backend
     async function fetchData(){
         try{
-            setTimeout(async() => {const subsListData = await getUserSubs();
+            const subsListData = await getUserSubs();
             setSubsList(subsListData);
             setLoadingSubs(false);
-            },2000)
         }catch(error){
             console.log(error);
         }
