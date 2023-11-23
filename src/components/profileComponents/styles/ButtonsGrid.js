@@ -3,18 +3,16 @@ import { lightenHexColor } from "../../../libs/utilFunctions"
 export const customStyles = (theme) => {
     return{
         buttonsgrid_main_grid: {
-            marginTop: "5px", 
-            display: "flex", 
-            flex: 1,
-            justifyContent: "right", 
-            paddingRight: "40px"
+            marginTop: "5px",
+            display: "flex",
+            justifyContent: "center"
         },
         buttonsgrid_button: {
             borderRadius: "30px",
             fontWeight: "bold"
         },
         buttonsgrid_iconbutton_share: {
-            marginRight: "-10px"
+            
         },
         buttonsgrid_iconbutton_icon_share: {
             color: theme.palette.primary.dark

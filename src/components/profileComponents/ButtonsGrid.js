@@ -65,9 +65,10 @@ function ButtonsGrid({username, nickname, follow, subscribed}){
     }
 
     return(
-        <Grid style={styles.buttonsgrid_main_grid} container columnSpacing={1} rowSpacing={1}>
+        <Grid style={styles.buttonsgrid_main_grid} container columnSpacing={0.5}>
             <Grid item>
                 <Button style={styles.buttonsgrid_button} 
+                fullWidth
                 variant={followCheck ? "outlined":"contained"}
                 onClick={onClickFollowButton}>
                     {followCheck ? "Unfollow":"Follow"}
@@ -75,6 +76,7 @@ function ButtonsGrid({username, nickname, follow, subscribed}){
             </Grid>
             <Grid item>
                 <Button style={styles.buttonsgrid_button}
+                fullWidth
                 variant={subscribeCheck ? "outlined":"contained"}
                 onClick={onClickSubscribe}>
                     {subscribeCheck ? "Unsubscribe":"Subscribe"}
@@ -90,25 +92,27 @@ function ButtonsGrid({username, nickname, follow, subscribed}){
                 setOpen={setShowUnsubscribePopup} 
                 open={showUnsubscribePopup} />
             </Grid>
-            <Grid item>
+            <Grid item >
                 <Button style={styles.buttonsgrid_button} 
+                fullWidth
                 variant="outlined">
                     Message
                 </Button>
             </Grid>
-            <Grid item>
+            <Grid item >
                 <Button style={styles.buttonsgrid_button} 
+                fullWidth
                 variant="outlined"
                 onClick={onClickTip}>
                     Tip
                 </Button>
             </Grid>
-            <Grid item>
+            <Grid item >
                 <IconButton style={styles.buttonsgrid_iconbutton_share}>
                     <Share style={styles.buttonsgrid_iconbutton_icon_share}/>
                 </IconButton>
             </Grid>
-            <Grid item>
+            <Grid item >
                 <IconButton onClick={handleClick}>
                     <MoreVert 
                     style={styles.buttonsgrid_iconbutton_icon_morevert}/>

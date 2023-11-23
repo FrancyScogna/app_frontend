@@ -17,7 +17,7 @@ function CountersBox({counters}){
 
     return(
         <div style={styles.counterbox_main_div}>
-            <Grid container columnSpacing={1}>
+            <Grid style={styles.counterbox_grid_container} container columnSpacing={1}>
                 {gridsItems.map((item) => (
                     <Grid key={item.key} item style={styles.counterbox_grid_item}>
                         {item.icon}

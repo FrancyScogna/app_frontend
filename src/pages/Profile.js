@@ -29,7 +29,7 @@ function Profile ({authUser}){
     const [subscribedCheck, setSubscribedCheck] = useState(false);
 
     useEffect(() => {
-        if(nickname === authUser.nickname){
+        if(authUser && nickname === authUser.nickname){
             setUser(authUser);
             setIsGuestProfile(false);
             setLoadingProfile(false);
@@ -37,22 +37,23 @@ function Profile ({authUser}){
             setIsGuestProfile(true);
             async function getGuestProfile(){
                 try {
-                    const userData = await getUserProfile(nickname);
-                    if(userData.blocked || !userData.user){
-                        setBlocked(true);
-                        setUser(null);
-                        setLoadingProfile(false);
-                        setFollowCheck(false);
-                        setFollowingCheck(false);
-                        setSubscribedCheck(false);
-                    } else {
-                        setBlocked(false);
-                        setUser(userData.user);
-                        setLoadingProfile(false);
-                        setFollowCheck(userData.follow);
-                        setFollowingCheck(userData.following);
-                        setSubscribedCheck(userData.subscribed);
-                    }
+                    await getUserProfile(nickname).then(userData => {
+                        if(userData.blocked || !userData.user){
+                            setBlocked(true);
+                            setUser(null);
+                            setLoadingProfile(false);
+                            setFollowCheck(false);
+                            setFollowingCheck(false);
+                            setSubscribedCheck(false);
+                        } else {
+                            setBlocked(false);
+                            setUser(userData.user);
+                            setLoadingProfile(false);
+                            setFollowCheck(userData.follow);
+                            setFollowingCheck(userData.following);
+                            setSubscribedCheck(userData.subscribed);
+                        }
+                    })
                 } catch(error){
                     console.log(error);
                     setLoadingProfile(false);
@@ -61,6 +62,8 @@ function Profile ({authUser}){
             getGuestProfile();
         }
     }, [nickname, authUser]);
+
+    console.log(nickname)
 
     // In attesa che vengano ricevuti i dati dell'utente dal backend.
     if(loadingProfile){
@@ -90,13 +93,13 @@ function Profile ({authUser}){
                         <div className="profile-tools-container">
                             <div className="profile-tools-top-container">
                                 <AnagraphicBox username={user.username} nickname={user.nickname}/>
-                                <FollowCounterBox counters={user.counters}/>
                             </div>
-                            <ButtonsGrid username={user.username} nickname={user.nickname} follow={followCheck} subscribed={subscribedCheck}/>
                         </div>
                     </div>
                 </div>
                 <div className="profile-center-bottom-container">
+                    <FollowCounterBox counters={user.counters}/>
+                    <ButtonsGrid username={user.username} nickname={user.nickname} follow={followCheck} subscribed={subscribedCheck}/>
                     <CountersBox counters={user.counters}/>
                     <DescriptionBox text={user.description}/>
                     <SubsBox user={user}/>

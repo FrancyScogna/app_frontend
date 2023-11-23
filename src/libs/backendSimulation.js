@@ -10,14 +10,14 @@ const setSeenNotificationsDelay = 10000;
 
 
 async function getAuthenticatedUser() {
-    const auth = true; // true
+    const auth = false; // true
     var user = null;
     if (auth) {
         user = {
             privacy: "public",
             username: "Francesco Scognamiglio",
             nickname: "frasco.97",
-            description: "my description",
+            description: faker.lorem.words(300),
             type: "creator",
             counters: {
                 vidsCount: 143,

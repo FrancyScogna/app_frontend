@@ -17,6 +17,15 @@ import TopBar from "./components/appComponents/TopBar";
 import { getAuthenticatedUser } from "./libs/backendSimulation";
 import LoadingPage from "./components/appComponents/LoadingPage";
 
+//Tipologia di utenti:
+//- UtenteNonAutenticato: colui che può visualizzare solo i post pubblici ma non può eseguire nessuna azione.
+//- UtenteAutenticato:
+//  - UtenteNonCertificato: colui che può visualizzare i post pubblici e fare azioni di base.
+//  - UtenteCertificato: colui che può visualizzare i post pubblici e può pubblicare contenuti ma non a pagamento e non può
+//                       realizzare abbonamenti di alcun tipo.
+//  - UtenteCertificatoCreator: colui che può visualizzare i post pubblici e può pubblicare post anche a pagamento e può
+//                       realizzare abbonamenti.
+
 function App() {
 
   const storedThemeMode = window.localStorage.getItem("themeMode");
