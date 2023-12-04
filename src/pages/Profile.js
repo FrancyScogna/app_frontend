@@ -1,7 +1,7 @@
 import "./Profile.css";
 import coverImage from "../images/cover-1500x500.png";
 import avatarImage from "../images/avatar-400x400.png";
-import { Avatar, useTheme } from "@mui/material";
+import { Avatar, useMediaQuery, useTheme } from "@mui/material";
 import ButtonsGrid from "../components/profileComponents/ButtonsGrid";
 import { lightenHexColor } from "../libs/utilFunctions";
 import DescriptionBox from "../components/profileComponents/DescriptionBox";
@@ -14,11 +14,15 @@ import LoadingPage from "../components/appComponents/LoadingPage";
 import SubsBox from "../components/profileComponents/SubsBox";
 import PostsTab from "../components/profileComponents/PostsTab";
 import { useParams } from "react-router-dom";
+import Cover from "../components/profileComponents/Cover";
 
 function Profile ({authUser}){
     const {nickname} = useParams();
 
     const theme = useTheme();
+
+    const downDesktop = useMediaQuery(theme.breakpoints.down("desktop"));
+
     const [loadingProfile, setLoadingProfile] = useState(true);
     const [isGuestProfile, setIsGuestProfile] = useState(false);
     const [blocked, setBlocked] = useState(false);
@@ -63,8 +67,6 @@ function Profile ({authUser}){
         }
     }, [nickname, authUser]);
 
-    console.log(nickname)
-
     // In attesa che vengano ricevuti i dati dell'utente dal backend.
     if(loadingProfile){
         return <LoadingPage />;
@@ -78,14 +80,12 @@ function Profile ({authUser}){
     return(
         <>
         <div className="main-container">
-            <div className="profile-left-container">
+            <div className="profile-left-container" style={{display: downDesktop && "none"}}>
                 <h1>Left</h1>
             </div>
-            <div className="profile-center-container" style={{borderInline: `solid 2px ${lightenHexColor(theme.palette.primary.dark, 120)}`}}>
+            <div className="profile-center-container" style={{borderInline: `solid 2px ${lightenHexColor(theme.palette.primary.dark, 120)}`, maxWidth: downDesktop && "100%"}}>
                 <div className="profile-center-top-container">
-                    <div className="profile-cover-container" style={{borderBottom: `solid 5px ${lightenHexColor(theme.palette.primary.dark, 120)}`,borderBottomLeftRadius: "10px",borderBottomRightRadius: "10px", overflow: "hidden"}}>
-                        <img alt="cover" src={coverImage} />
-                    </div>
+                    <Cover user={user} isGuestProfile={isGuestProfile}/>
                     <div className="profile-avatar-buttons-container">
                         <div className="profile-avatar-container">
                             <Avatar style={{width: "100%", height: "100%", border: `solid 3px ${lightenHexColor(theme.palette.primary.dark, 120)}`}} src={avatarImage}/>
@@ -106,7 +106,7 @@ function Profile ({authUser}){
                     <PostsTab user={user}/>
                 </div>
             </div>
-            <div className="profile-right-container">
+            <div className="profile-right-container" style={{display: downDesktop && "none"}}>
                 <h1>Right</h1>
             </div>
         </div>

@@ -22,14 +22,6 @@
     flex-direction: column;
 }
 
-.profile-cover-container {
-    position: relative;
-    flex-direction: column;
-    justify-content: center;
-    display: flex;
-    z-index: 0;
-}
-
 .profile-avatar-buttons-container {
     display: flex;
     width: 100%;

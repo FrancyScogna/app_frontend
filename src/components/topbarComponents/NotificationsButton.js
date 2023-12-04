@@ -26,7 +26,6 @@ function NotificationsButton(){
     const [loading, setLoading] = useState(true);
     const [anchorEl, setAnchorEl] = useState(null);
 
-    console.log(notifications)
 
     //Funzione che mi restituisce le prime 10 notifiche dalla tabella delle notifiche
     useEffect(() => {
@@ -35,7 +34,6 @@ function NotificationsButton(){
             setNotifications(notificationsData);
             setLoading(false);
             setShow(true);
-            console.log(notificationsData)
         }
         setShow(false);
         fetchNotifications();
@@ -57,7 +55,6 @@ function NotificationsButton(){
             if(anchorEl){
                 setBadgeNum(0);
             }else{
-                console.log(notifications)
                 let intCount = 0;
                 for (let i = 0; i < Math.min(10, notifications.length); i++) {
                     if (notifications[i] && notifications[i].seen === false) {

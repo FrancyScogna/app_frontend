@@ -1,5 +1,10 @@
 const {faker} = require("@faker-js/faker");
 
+const AuthUserCover = require("../libs/images/profile/frasco.97/frasco.97Cover.jpg");
+const GuestUserCover = require("../libs/images/profile/feli.mici/feli.miciCover.jpg");
+const AuthUserAvatar = require("../libs/images/profile/frasco.97/frasco.97Avatar.jpg");
+const GuestUserAvatar = require("../libs/images/profile/feli.mici/feli.miciAvatar.jpg");
+
 const getAuthenticatedUserDelay = 100;
 const getUserProfileDelay = 100;
 const getNotificationsDelay = 100;
@@ -10,7 +15,7 @@ const setSeenNotificationsDelay = 10000;
 
 
 async function getAuthenticatedUser() {
-    const auth = false; // true
+    const auth = true; // true
     var user = null;
     if (auth) {
         user = {
@@ -18,6 +23,8 @@ async function getAuthenticatedUser() {
             username: "Francesco Scognamiglio",
             nickname: "frasco.97",
             description: faker.lorem.words(300),
+            cover: null,
+            avatar: AuthUserAvatar,
             type: "creator",
             counters: {
                 vidsCount: 143,
@@ -25,6 +32,12 @@ async function getAuthenticatedUser() {
                 clipsCount: 23,
                 followersCount: 400,
                 followingCount: 150
+            },
+            coverCrop: {
+                width: 920,
+                height: 307,
+                x: 0,
+                y: 285
             }
         };
     }
@@ -70,7 +83,14 @@ async function getUserProfile(nickname) {
                                 clipsCount: faker.number.int({ max: 4000000 }),
                                 followersCount: faker.number.int({ max: 4000000 }),
                                 followingCount: faker.number.int({ max: 4000000 })
-                            }
+                            },           
+                            coverCrop: {
+                                width: 960,
+                                height: 320,
+                                x: 0,
+                                y: 127
+                            },
+                            cover: GuestUserCover
                         },
                         blocked,
                         follow,
