@@ -7,15 +7,18 @@ import {
   MenuItem,
   Skeleton,
   Typography,
+  useMediaQuery,
   useTheme,
 } from "@mui/material";
 import { Close, Edit } from "@mui/icons-material";
 import getCroppedImg from "./CoverComponents/cropLib";
 import UploadAndReposition from "./CoverComponents/UploadAndReposition";
 import nullCoverImage from "../../images/cover-1500x500.png";
+import { flexbox } from "@mui/system";
 
 function Cover({ user, isGuestProfile }) {
   const theme = useTheme();
+  const downIpad = useMediaQuery(theme.breakpoints.down("ipad"));
   const [loading, setLoading] = useState(true);
   const [showEditButton, setShowEditButton] = useState(false);
   const [selectedOperation, setSelectedOperation] = useState(null);
@@ -79,7 +82,7 @@ function Cover({ user, isGuestProfile }) {
     setDivWidth(div ? div.clientWidth : null);
 
     async function cropImage() {
-      if (user.coverCrop && user.crop) {
+      if (user.coverCrop && user.cover) {
         const crpImage = await getCroppedImg(user.cover, user.coverCrop);
         setCroppedImage(crpImage);
         setLoading(false);
@@ -111,6 +114,21 @@ function Cover({ user, isGuestProfile }) {
     setOpenCoverImage(false);
   };
 
+  const onClickCoverDownIpad = (event) => {
+    console.log(showEditButton);
+    console.log(selectedOperation);
+    if(!isGuestProfile && selectedOperation === null){
+        setAnchorEl(event.currentTarget);
+    }else{
+        setOpenCoverImage(true);
+    }
+  }
+
+  const onClickToShowCover = () => {
+    handleClose();
+    setOpenCoverImage(true);
+  }
+
   return (
     <div
       id="divMain"
@@ -133,7 +151,7 @@ function Cover({ user, isGuestProfile }) {
           <img
             alt={`Copertina di ${user.nickname}`}
             src={croppedImage}
-            onClick={onClickCover}
+            onClick={downIpad ? onClickCoverDownIpad : onClickCover}
             style={{ width: "100%", position: "absolute", zIndex: 1 }}
           />
         </>
@@ -144,7 +162,7 @@ function Cover({ user, isGuestProfile }) {
         style={{ zIndex: 0 }}
         variant="rectangular"
       />
-      <Dialog open={openCoverImage} onClose={handleCloseCover}>
+      <Dialog open={openCoverImage} fullWidth onClose={handleCloseCover}>
         <div style={{ display: "flex", flexDirection: "column", margin: "5px" }}>
           <div style={{ display: "flex", flexDirection: "row" }}>
             <IconButton
@@ -154,7 +172,9 @@ function Cover({ user, isGuestProfile }) {
               <Close style={{ fontSize: "20px", color: theme.palette.primary.dark }} />
             </IconButton>
           </div>
-          <img alt={`Copertina di ${user.nickname}`} src={coverImgTmp ? coverImgTmp : user.cover} style={{ width: "100%", zIndex: 2 }} />
+          <div style={{display: "flex", alignItems: "center"}}>
+            <img alt={`Copertina di ${user.nickname}`} src={coverImgTmp ? coverImgTmp : user.cover} style={{ width: "100%", zIndex: 2 }} />
+          </div>
         </div>
       </Dialog>
       <Menu
@@ -163,6 +183,7 @@ function Cover({ user, isGuestProfile }) {
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
+        {downIpad && (user.cover || coverImgTmp) && <MenuItem onClick={onClickToShowCover}>Visualizza copertina</MenuItem>}
         <MenuItem onClick={onClickUpload}>Carica foto</MenuItem>
         <MenuItem disabled={(user.cover || coverImgTmp) ? false : true}>Riposiziona</MenuItem>
         <MenuItem disabled={(user.cover || coverImgTmp) ? false : true}>Elimina</MenuItem>
@@ -186,7 +207,7 @@ function Cover({ user, isGuestProfile }) {
         />
       )}
 
-      {showEditButton && selectedOperation === null && (
+      {showEditButton && selectedOperation === null && !downIpad && (
         <ButtonBase
           style={{
             position: "absolute",

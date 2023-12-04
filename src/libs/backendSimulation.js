@@ -23,7 +23,7 @@ async function getAuthenticatedUser() {
             username: "Francesco Scognamiglio",
             nickname: "frasco.97",
             description: faker.lorem.words(300),
-            cover: null,
+            cover: AuthUserCover,
             avatar: AuthUserAvatar,
             type: "creator",
             counters: {

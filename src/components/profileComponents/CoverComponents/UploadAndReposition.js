@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ButtonBase, Typography, useTheme } from "@mui/material";
-import { Check, Delete } from "@mui/icons-material";
+import { ButtonBase, Dialog, DialogContent, DialogTitle, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { ArrowBack, ArrowLeft, Check, Delete } from "@mui/icons-material";
 import ReactCrop from "react-easy-crop";
+import Cropper from "react-easy-crop";
 
 const UploadAndReposition = ({
   selectedImage,
@@ -12,6 +13,7 @@ const UploadAndReposition = ({
   setLoadingOperation,
 }) => {
   const theme = useTheme();
+  const downIpad = useMediaQuery(theme.breakpoints.down("ipad"));
   const [crop, setCrop] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const imgRef = useRef(null);
@@ -63,6 +65,7 @@ const UploadAndReposition = ({
   const onClickConfirm = () => {
     setLoadingOperation(true);
     const image = selectedImage;
+    console.log(croppedArea)
     setSelectedImage(null);
     setTimeout(() => {
       setCoverImgTmp(image);
@@ -79,7 +82,7 @@ const UploadAndReposition = ({
 
   return (
     <>
-      {selectedImage && (
+      {(selectedImage && !downIpad) && (
         <div id="divMain" style={{ width: "100%", height: contHeight, position: "absolute" }}>
           <ReactCrop
             image={selectedImage}
@@ -128,6 +131,34 @@ const UploadAndReposition = ({
           </div>
         </div>
       )}
+      {(selectedImage && downIpad) && 
+      <Dialog open fullScreen>
+        <DialogTitle style={{padding: "0px", position: "absolute", display: "flex", width: "100%", zIndex: "10", backgroundColor: theme.palette.background.paper}}>
+            <IconButton style={{marginRight: "auto"}} onClick={onClickClose}>
+                <ArrowBack />
+            </IconButton>
+            <IconButton style={{alignContent: "center"}} onClick={onClickConfirm}>
+                <Typography fontSize={17}>Save</Typography>
+                <Check />
+            </IconButton>
+        </DialogTitle>
+        <DialogContent style={{padding: "0px", display: "flex", justifyContent: "center"}}>
+        <Cropper
+            style={{containerStyle: {width: contWidth, position: "relative"}}}
+            image={selectedImage}
+            crop={crop}
+            zoom={zoom}
+            onCropChange={onCropChange}
+            onZoomChange={onZoomChange}
+            onImageLoaded={onImageLoaded}
+            onCropComplete={onCropComplete}
+            showGrid={false}
+            mediaProps={{width: contWidth}}
+            cropSize={{ width: contWidth, height: contHeight }}
+        />
+        </DialogContent>
+      </Dialog>
+      }
     </>
   );
 };
