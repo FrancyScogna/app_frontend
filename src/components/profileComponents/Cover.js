@@ -14,7 +14,7 @@ import { Close, Edit } from "@mui/icons-material";
 import getCroppedImg from "./CoverComponents/cropLib";
 import UploadAndReposition from "./CoverComponents/UploadAndReposition";
 import nullCoverImage from "../../images/cover-1500x500.png";
-import { flexbox } from "@mui/system";
+import Reposition from "./CoverComponents/Reposition";
 
 function Cover({ user, isGuestProfile }) {
   const theme = useTheme();
@@ -185,7 +185,7 @@ function Cover({ user, isGuestProfile }) {
       >
         {downIpad && (user.cover || coverImgTmp) && <MenuItem onClick={onClickToShowCover}>Visualizza copertina</MenuItem>}
         <MenuItem onClick={onClickUpload}>Carica foto</MenuItem>
-        <MenuItem disabled={(user.cover || coverImgTmp) ? false : true}>Riposiziona</MenuItem>
+        <MenuItem disabled={(user.cover || coverImgTmp) ? false : true} onClick={() => {setSelectedOperation("reposition"); handleClose();}}>Riposiziona</MenuItem>
         <MenuItem disabled={(user.cover || coverImgTmp) ? false : true}>Elimina</MenuItem>
       </Menu>
 
@@ -206,6 +206,15 @@ function Cover({ user, isGuestProfile }) {
           setLoadingOperation={setLoadingOperation}
         />
       )}
+      {selectedOperation === "reposition" && 
+        <Reposition 
+          coverImage={coverImgTmp ? coverImgTmp : user.cover} 
+          setCoverCropTmp={setCoverCropTmp}
+          setCoverImgTmp={setCoverImgTmp} 
+          setLoadingOperation={setLoadingOperation}
+          setSelectedOperation={setSelectedOperation}
+        />
+      }
 
       {showEditButton && selectedOperation === null && !downIpad && (
         <ButtonBase

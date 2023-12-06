@@ -4,13 +4,12 @@ import { ArrowBack, Check, Delete } from "@mui/icons-material";
 import ReactCrop from "react-easy-crop";
 import Cropper from "react-easy-crop";
 
-const UploadAndReposition = ({
-  selectedImage,
-  setSelectedImage,
-  setSelectedOperation,
+const Reposition = ({
+  coverImage,
   setCoverCropTmp,
   setCoverImgTmp,
   setLoadingOperation,
+  setSelectedOperation
 }) => {
   const theme = useTheme();
   const downIpad = useMediaQuery(theme.breakpoints.down("ipad"));
@@ -22,14 +21,11 @@ const UploadAndReposition = ({
   const [contHeight, setContHeight] = useState(null);
 
   useEffect(() => {
-    setSelectedOperation("upload");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     const div = document.getElementById("divMain");
-    setContWidth(div ? div.clientWidth : null);
-    setContHeight(div ? div.clientWidth / 3 : null);
+    const width = div ? div.clientWidth : null;
+    const height = div ? div.clientWidth / 3 : null
+    setContWidth(width);
+    setContHeight(height);
   }, []);
 
   useEffect(() => {
@@ -60,32 +56,27 @@ const UploadAndReposition = ({
     setCroppedArea(croppedAreaPixels);
   };
 
-  //Funzione di backend che permette il caricamento della cropped area nel db e
-  //il caricamento dell'immagine in s3
+  //Funzione di backend che permette il caricamento della cropped area nel db (l'immagine è la stessa)
   const onClickConfirm = () => {
     setLoadingOperation(true);
-    const image = selectedImage;
-    console.log(croppedArea)
-    setSelectedImage(null);
+    const image = coverImage;
+    setSelectedOperation(null);
     setTimeout(() => {
       setCoverImgTmp(image);
       setCoverCropTmp(croppedArea);
-      setSelectedOperation(null);
-      setSelectedImage(null);
     }, 2000);
   };
 
   const onClickClose = () => {
     setSelectedOperation(null);
-    setSelectedImage(null);
   };
 
   return (
     <>
-      {(selectedImage && !downIpad) && (
+      {(!downIpad) && (
         <div id="divMain" style={{ width: "100%", height: contHeight, position: "absolute" }}>
           <ReactCrop
-            image={selectedImage}
+            image={coverImage}
             crop={crop}
             zoom={zoom}
             onCropChange={onCropChange}
@@ -131,7 +122,7 @@ const UploadAndReposition = ({
           </div>
         </div>
       )}
-      {(selectedImage && downIpad) && 
+      {(downIpad) && 
       <Dialog open fullScreen>
         <DialogTitle style={{padding: "0px", position: "absolute", display: "flex", width: "100%", zIndex: "10", backgroundColor: theme.palette.background.paper}}>
             <IconButton style={{marginRight: "auto"}} onClick={onClickClose}>
@@ -145,7 +136,7 @@ const UploadAndReposition = ({
         <DialogContent style={{padding: "0px", display: "flex", justifyContent: "center"}}>
         <Cropper
             style={{containerStyle: {width: contWidth, position: "relative"}}}
-            image={selectedImage}
+            image={coverImage}
             crop={crop}
             zoom={zoom}
             onCropChange={onCropChange}
@@ -163,4 +154,4 @@ const UploadAndReposition = ({
   );
 };
 
-export default UploadAndReposition;
+export default Reposition;
