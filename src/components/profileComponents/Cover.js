@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  Button,
   ButtonBase,
   Dialog,
   IconButton,
@@ -10,15 +11,19 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { Close, Edit } from "@mui/icons-material";
+import { AddPhotoAlternate, Close, Delete, Edit, Height, InsertPhoto } from "@mui/icons-material";
 import getCroppedImg from "./CoverComponents/cropLib";
 import UploadAndReposition from "./CoverComponents/UploadAndReposition";
 import nullCoverImage from "../../images/cover-1500x500.png";
 import Reposition from "./CoverComponents/Reposition";
+import DeleteCoverDialog from "./CoverComponents/DeleteCoverDialog";
+import { lightenHexColor } from "../../libs/utilFunctions";
+import ShowCoverImage from "./CoverComponents/ShowCoverImage";
 
 function Cover({ user, isGuestProfile }) {
   const theme = useTheme();
   const downIpad = useMediaQuery(theme.breakpoints.down("ipad"));
+  const downDesktop = useMediaQuery(theme.breakpoints.down("desktop"));
   const [loading, setLoading] = useState(true);
   const [showEditButton, setShowEditButton] = useState(false);
   const [selectedOperation, setSelectedOperation] = useState(null);
@@ -110,13 +115,7 @@ function Cover({ user, isGuestProfile }) {
     setOpenCoverImage(true);
   };
 
-  const handleCloseCover = () => {
-    setOpenCoverImage(false);
-  };
-
   const onClickCoverDownIpad = (event) => {
-    console.log(showEditButton);
-    console.log(selectedOperation);
     if(!isGuestProfile && selectedOperation === null){
         setAnchorEl(event.currentTarget);
     }else{
@@ -129,6 +128,51 @@ function Cover({ user, isGuestProfile }) {
     setOpenCoverImage(true);
   }
 
+  const onClickReposition = () => {
+    setSelectedOperation("reposition"); 
+    handleClose();
+  }
+
+  const onClickDelete = () => {
+    setSelectedOperation("delete");
+    handleClose();
+  }
+
+  const menuItems = [
+    {
+      key: "view-cover", 
+      text: "Visualizza copertina", 
+      icon: <InsertPhoto style={{fontSize: "16px", marginRight: "2px", color: theme.palette.primary.dark}} />,
+      displayCondition: !downDesktop ? "none" : "flex",
+      disabledContition: false,
+      fn: onClickToShowCover
+    },
+    {
+      key: "upload-cover", 
+      text: "Carica foto", 
+      icon: <AddPhotoAlternate style={{fontSize: "16px", marginRight: "2px"}} />,
+      displayCondition: "flex",
+      disabledContition: false,
+      fn: onClickUpload
+    },
+    {
+      key: "reposition-cover", 
+      text: "Riposiziona", 
+      icon: <Height style={{fontSize: "16px", marginRight: "2px"}} />,
+      displayCondition: "flex",
+      disabledContition: (user.cover || coverImgTmp) ? false : true,
+      fn: onClickReposition
+    },
+    {
+      key: "delete-cover", 
+      text: "Elimina", 
+      icon: <Delete style={{fontSize: "16px", marginRight: "2px"}} />,
+      displayCondition: "flex",
+      disabledContition: (user.cover || coverImgTmp) ? false : true,
+      fn: onClickDelete
+    },
+  ]
+
   return (
     <div
       id="divMain"
@@ -137,8 +181,6 @@ function Cover({ user, isGuestProfile }) {
         flexDirection: "column",
         justifyContent: "center",
         display: "flex",
-        borderBottomLeftRadius: "10px",
-        borderBottomRightRadius: "10px",
         overflow: "hidden",
         zIndex: 1,
         width: "100%",
@@ -146,12 +188,12 @@ function Cover({ user, isGuestProfile }) {
       onMouseOver={() => showHideEditButton(true)}
       onMouseOut={() => !lockEditButton && showHideEditButton(false)}
     >
-      {!loading && !loadingOperation && selectedOperation === null && (
+      {!loading && !loadingOperation && (selectedOperation === null || selectedOperation === "delete") && (
         <>
           <img
             alt={`Copertina di ${user.nickname}`}
             src={croppedImage}
-            onClick={downIpad ? onClickCoverDownIpad : onClickCover}
+            onClick={downDesktop ? onClickCoverDownIpad : onClickCover}
             style={{ width: "100%", position: "absolute", zIndex: 1 }}
           />
         </>
@@ -162,31 +204,25 @@ function Cover({ user, isGuestProfile }) {
         style={{ zIndex: 0 }}
         variant="rectangular"
       />
-      <Dialog open={openCoverImage} fullWidth onClose={handleCloseCover}>
-        <div style={{ display: "flex", flexDirection: "column", margin: "5px" }}>
-          <div style={{ display: "flex", flexDirection: "row" }}>
-            <IconButton
-              onClick={() => setOpenCoverImage(false)}
-              style={{ position: "relative", marginLeft: "auto" }}
-            >
-              <Close style={{ fontSize: "20px", color: theme.palette.primary.dark }} />
-            </IconButton>
-          </div>
-          <div style={{display: "flex", alignItems: "center"}}>
-            <img alt={`Copertina di ${user.nickname}`} src={coverImgTmp ? coverImgTmp : user.cover} style={{ width: "100%", zIndex: 2 }} />
-          </div>
-        </div>
-      </Dialog>
+      <ShowCoverImage nickname={user.nickname} src={coverImgTmp ? coverImgTmp : user.cover} open={openCoverImage} setOpen={setOpenCoverImage} />
+      
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        {downIpad && (user.cover || coverImgTmp) && <MenuItem onClick={onClickToShowCover}>Visualizza copertina</MenuItem>}
-        <MenuItem onClick={onClickUpload}>Carica foto</MenuItem>
-        <MenuItem disabled={(user.cover || coverImgTmp) ? false : true} onClick={() => {setSelectedOperation("reposition"); handleClose();}}>Riposiziona</MenuItem>
-        <MenuItem disabled={(user.cover || coverImgTmp) ? false : true}>Elimina</MenuItem>
+        {menuItems.map((item) => (
+          <MenuItem
+            key={item.key}
+            style={{fontSize: "14px", color: lightenHexColor(theme.palette.primary.dark, 20), display: item.displayCondition }}
+            disabled={item.disabledContition}
+            onClick={item.fn}
+          >
+            {item.icon}
+            {item.text}
+          </MenuItem>
+        ))}
       </Menu>
 
       <input
@@ -215,25 +251,29 @@ function Cover({ user, isGuestProfile }) {
           setSelectedOperation={setSelectedOperation}
         />
       }
+      {selectedOperation === "delete" &&
+        <DeleteCoverDialog
+          setSelectedOperation={setSelectedOperation}
+        />
+      }
 
-      {showEditButton && selectedOperation === null && !downIpad && (
-        <ButtonBase
-          style={{
-            position: "absolute",
-            right: "5px",
-            bottom: "5px",
-            borderRadius: "10px",
-            padding: "3px",
-            backgroundColor: theme.palette.primary.light,
-            zIndex: 1,
-          }}
-          onClick={onClickEditButton}
+      {showEditButton && selectedOperation === null && !downDesktop && (
+        <Button
+        variant="contained"
+        style={{
+          position: "absolute",
+          right: "5px",
+          bottom: "5px",
+          padding: "4px",
+          zIndex: 1,
+        }}
+        onClick={onClickEditButton}
         >
-          <Edit style={{ fontSize: "15px", color: theme.palette.primary.dark }} />
-          <Typography style={{ fontSize: "13px", marginLeft: "3px", color: theme.palette.primary.dark }}>
-            Modifica copertina
+          <Typography style={{display: "flex", flexDirection: "row", alignItems: "center", fontSize: "11px", fontWeight: "bolder"}}>
+            <Edit style={{ fontSize:"12px", marginRight: "2px", marginBottom: "2px" }} />
+            Modifica Copertina
           </Typography>
-        </ButtonBase>
+        </Button>
       )}
     </div>
   );

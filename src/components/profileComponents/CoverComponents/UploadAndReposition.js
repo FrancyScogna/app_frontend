@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { ButtonBase, Dialog, DialogContent, DialogTitle, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
+import { Button, ButtonBase, Dialog, DialogContent, DialogTitle, IconButton, Typography, useMediaQuery, useTheme } from "@mui/material";
 import { ArrowBack, Check, Delete } from "@mui/icons-material";
 import ReactCrop from "react-easy-crop";
 import Cropper from "react-easy-crop";
@@ -65,7 +65,6 @@ const UploadAndReposition = ({
   const onClickConfirm = () => {
     setLoadingOperation(true);
     const image = selectedImage;
-    console.log(croppedArea)
     setSelectedImage(null);
     setTimeout(() => {
       setCoverImgTmp(image);
@@ -97,37 +96,39 @@ const UploadAndReposition = ({
             showGrid={false}
           />
           <div style={{ display: "flex", position: "absolute", bottom: "5px", right: "5px" }}>
-            <ButtonBase
+            <Button
+              variant="contained"
               style={{
-                position: "relative",
-                bottom: "0px",
-                borderRadius: "10px",
-                padding: "3px",
-                backgroundColor: theme.palette.primary.light,
+                position: "absolute",
+                right: "90px",
+                bottom: "5px",
+                padding: "4px",
+                zIndex: 1
               }}
               onClick={onClickConfirm}
             >
-              <Check style={{ fontSize: "15px", color: theme.palette.primary.dark }} />
-              <Typography style={{ fontSize: "13px", marginLeft: "3px", color: theme.palette.primary.dark }}>
-                Conferma
+              <Typography style={{display: "flex", flexDirection: "row", alignItems: "center", fontSize: "11px", fontWeight: "bolder"}}>
+                <Check style={{ fontSize:"12px", marginRight: "2px", marginBottom: "2px" }} />
+                Salva
               </Typography>
-            </ButtonBase>
+            </Button>
             <div style={{ width: "10px" }} />
-            <ButtonBase
+            <Button
+              variant="contained"
               style={{
-                position: "relative",
-                bottom: "0px",
-                borderRadius: "10px",
-                padding: "3px",
-                backgroundColor: theme.palette.primary.light,
+                position: "absolute",
+                right: "5px",
+                bottom: "5px",
+                padding: "4px",
+                zIndex: 1,
               }}
               onClick={onClickClose}
             >
-              <Delete style={{ fontSize: "15px", color: theme.palette.primary.dark }} />
-              <Typography style={{ fontSize: "13px", marginLeft: "3px", color: theme.palette.primary.dark }}>
+              <Typography style={{display: "flex", flexDirection: "row", alignItems: "center", fontSize: "11px", color: theme.palette.customColors.delete, fontWeight: "bolder"}}>
+                <Delete style={{ fontSize:"12px", marginRight: "2px", marginBottom: "2px" }} />
                 Annulla
               </Typography>
-            </ButtonBase>
+            </Button>
           </div>
         </div>
       )}
@@ -137,9 +138,11 @@ const UploadAndReposition = ({
             <IconButton style={{marginRight: "auto"}} onClick={onClickClose}>
                 <ArrowBack />
             </IconButton>
-            <IconButton style={{alignContent: "center"}} onClick={onClickConfirm}>
-                <Typography fontSize={17}>Save</Typography>
-                <Check />
+            <IconButton style={{alignContent: "center", borderRadius: "30px"}} onClick={onClickConfirm}>
+                <Typography style={{fontSize: "16px", display: "flex", flexDirection: "row", alignItems: "center"}}>
+                  <Check style={{marginBottom: "2px", fontSize: "18px"}} />
+                  Save
+                </Typography>
             </IconButton>
         </DialogTitle>
         <DialogContent style={{padding: "0px", display: "flex", justifyContent: "center"}}>
@@ -154,6 +157,7 @@ const UploadAndReposition = ({
             onCropComplete={onCropComplete}
             showGrid={false}
             mediaProps={{width: contWidth}}
+            objectFit="horizontal-cover"
             cropSize={{ width: contWidth, height: contHeight }}
         />
         </DialogContent>

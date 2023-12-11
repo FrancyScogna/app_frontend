@@ -33,6 +33,9 @@ export const lightTheme = createTheme({
         default: "#fffff",
         paper: "#d299ff",
         paper_1: "#9526ed"
+      },
+      customColors: {
+        delete: "#800000"
       }
     },
     components: {
