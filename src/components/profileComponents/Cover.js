@@ -1,9 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   Button,
-  ButtonBase,
-  Dialog,
-  IconButton,
   Menu,
   MenuItem,
   Skeleton,
@@ -11,7 +8,7 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import { AddPhotoAlternate, Close, Delete, Edit, Height, InsertPhoto } from "@mui/icons-material";
+import { AddPhotoAlternate, Delete, Edit, Height, InsertPhoto } from "@mui/icons-material";
 import getCroppedImg from "./CoverComponents/cropLib";
 import UploadAndReposition from "./CoverComponents/UploadAndReposition";
 import nullCoverImage from "../../images/cover-1500x500.png";
@@ -22,7 +19,6 @@ import ShowCoverImage from "./CoverComponents/ShowCoverImage";
 
 function Cover({ user, isGuestProfile }) {
   const theme = useTheme();
-  const downIpad = useMediaQuery(theme.breakpoints.down("ipad"));
   const downDesktop = useMediaQuery(theme.breakpoints.down("desktop"));
   const [loading, setLoading] = useState(true);
   const [showEditButton, setShowEditButton] = useState(false);

@@ -1,6 +1,5 @@
-import { Close, CloseOutlined } from "@mui/icons-material";
+import { Close } from "@mui/icons-material";
 import { Dialog, DialogContent, IconButton, useMediaQuery, useTheme } from "@mui/material";
-import { style } from "@mui/system";
 
 function ShowCoverImage({src, nickname, setOpen, open}){
 

@@ -1,12 +1,9 @@
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, Grid } from "@mui/material";
 import { useState } from "react";
-import nullCoverImage from "../../../images/cover-1500x500.png";
 
 function DeleteCoverDialog({setSelectedOperation}){
 
     const [openDelete, setOpenDelete] = useState(true);
-    const nullCoverHeight = 500;
-    const nullCoverWidth = 1500;
 
     const onClickDelete = () => {
         //Funzione di backend che esegue la rimozione dal db del cover crop
